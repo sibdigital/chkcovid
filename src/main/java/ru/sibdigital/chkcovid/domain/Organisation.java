@@ -81,4 +81,6 @@ public class Organisation {
     public int hashCode() {
         return Objects.hash(itn, organizationName, lastname, firstname, patronymic);
     }
+
+
 }

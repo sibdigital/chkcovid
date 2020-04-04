@@ -1,30 +1,31 @@
 <#import "components/common.ftlh" as c>
 
 <@c.page>
-    <table>
-        <thead>
-        <tr>
-            <th>ИНН</th>
-            <th>Наименование организации</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <#list organisations as org>
+    <div class="container">
+        <table>
+            <thead>
             <tr>
-                <td>${org}</td>
-                <td>${org}</td>
-                <td>${org}</td>
-                <td>${org}</td>
-                <td>${org}</td>
-                <td>Eclair</td>
-                <td>$0.87</td>
+                <th>ИНН</th>
+                <th>Наименование организации</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
             </tr>
-        </#list>
+            </thead>
 
-        </tbody>
-    </table>
+            <tbody>
+            <#list organisations as org>
+                <tr>
+                    <td>${org.itn}</td>
+                    <td>${org.organizationName}</td>
+                    <td>${org.lastname}</td>
+                    <td>${org.firstname}</td>
+                    <td>${org.patronymic}</td>
+                </tr>
+            </#list>
+
+            </tbody>
+        </table>
+    </div>
+
 </@c.page>

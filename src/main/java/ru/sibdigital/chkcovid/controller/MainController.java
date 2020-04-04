@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.sibdigital.chkcovid.domain.Organisation;
 
 import java.util.*;
 
@@ -11,12 +12,16 @@ import java.util.*;
 public class MainController {
 
     @GetMapping
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="User") String name, Map<String, Object> model) {
+    public String greeting(Map<String, Object> model) {
+        List<Organisation> organisations = new ArrayList<>(){{
+            add(Organisation.builder().firstname("Вавсилий").lastname("Петров").patronymic("").itn("123456789").organizationName("Пупа").build());
+            add(Organisation.builder().firstname("Вавсилий").lastname("Петров").patronymic("Никитович").itn("123456789").organizationName("Пупа").build());
+            add(Organisation.builder().firstname("Артем").lastname("Нежданов").patronymic("Василиевич").itn("123456789").organizationName("Пупа").build());
+
+
+        }};
+        model.put("organisations", organisations);
         return "index";
     }
 
-    @PostMapping("/")
-    public String addSort(@RequestParam String arr, Map<String, Object> model) {
-        return "index";
-    }
 }
