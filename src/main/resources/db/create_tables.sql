@@ -6,5 +6,5 @@ CREATE TABLE organization (
         organization_name text not null,
         lastname varchar(255) not null,
         firstname varchar(255) not null,
-        patronymic varchar(255)
+        patronymic varchar(255) default ''
 );

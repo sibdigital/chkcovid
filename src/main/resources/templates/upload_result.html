@@ -48,21 +48,21 @@
                         <tbody>
                         <div th:each="data, dataState : ${protocol.parsedData}">
                             <tr >
-                                <td th:class="${protocol.statuses[dataState.index][0] != '' ? 'bg-danger' : 'bg-white'}"><span th:text="${data.get('inn')}"></span></td>
-                                <td th:class="${protocol.statuses[dataState.index][1] != '' ? 'bg-danger' : 'bg-white'}"><span th:text="${data.get('organizationName')}"></span></td>
-                                <td th:class="${protocol.statuses[dataState.index][2] != '' ? 'bg-danger' : 'bg-white'}"><span th:text="${data.get('lastname')}"></span></td>
-                                <td th:class="${protocol.statuses[dataState.index][3] != '' ? 'bg-danger' : 'bg-white'}"><span th:text="${data.get('firstname')}"></span></td>
+                                <td><span th:text="${data.get('inn')}"></span></td>
+                                <td ><span th:text="${data.get('organizationName')}"></span></td>
+                                <td ><span th:text="${data.get('lastname')}"></span></td>
+                                <td ><span th:text="${data.get('firstname')}"></span></td>
                                 <td><span th:text="${data.get('patronymic')}"></span></td>
-                                <td th:class="${data.get('status') == 'OK' ? 'bg-success' : (data.get('status') == 'ERROR' ? 'bg-danger' : 'bg-warning') }"><span th:text="${data.get('status')}"></span></td>
+                                <td th:class="${data.get('status') == 'OK' ? 'bg-success' : (data.get('status') != 'Уже существует в Базе Данных' ? 'bg-danger' : 'bg-warning') }"><span th:text="${data.get('status')}"></span></td>
                             </tr>
 
-                            <tr th:if="${data.get('status') == 'ERROR'}">
+                            <!--<tr th:if="${data.get('status') == 'ERROR'}">
                                 <div th:each="status: ${protocol.statuses[dataState.index]}">
                                     <td th:class="${status == '' ? 'bg-white' : 'bg-danger'}">
                                         <span th:text="${status}" ></span>
                                     </td>
                                 </div>
-                            </tr>
+                            </tr>-->
                         </div>
 
 

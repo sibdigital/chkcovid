@@ -9,7 +9,6 @@ public class UploadProtocol {
 
     private List<Map> parsedData;
 
-    private List<List> statuses;
 
     private String globalMessage = "";
 
@@ -37,13 +36,6 @@ public class UploadProtocol {
         this.parsedData = parsedData;
     }
 
-    public List<List> getStatuses() {
-        return statuses;
-    }
-
-    public void setStatuses(List<List> statuses) {
-        this.statuses = statuses;
-    }
 
     public String getGlobalMessage() {
         return globalMessage;

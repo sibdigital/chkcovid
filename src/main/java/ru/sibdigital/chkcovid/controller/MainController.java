@@ -4,24 +4,20 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sibdigital.chkcovid.domain.Organization;
 import ru.sibdigital.chkcovid.repository.OrganizationRepo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class MainController {
 
-    private OrganizationRepo organizationRepo;
     private static final Logger logger = Logger.getLogger(MainController.class);
+    private OrganizationRepo organizationRepo;
 
-    private List<Organization> organizations = new ArrayList<>(){{
-        add(Organization.builder().firstname("Иван").lastname("Иванович").patronymic("Иванов").inn("123456789").organizationName("Водоснабжение").build());
-        add(Organization.builder().firstname("Петр").lastname("Петров").patronymic("Петрович").inn("987654321").organizationName("Электросети").build());
-        add(Organization.builder().firstname("Зигимунд").lastname("Кржижановский").patronymic("Доминикович").inn("4445").organizationName("Союз писателей").build());
-    }};
 
     public MainController(OrganizationRepo organizationRepo) {
         this.organizationRepo = organizationRepo;
@@ -29,13 +25,39 @@ public class MainController {
 
     @GetMapping
     public String greeting(Map<String, Object> model) {
-//        List<Organization> all = organizationRepo.findAll();
-        model.put("organizations", organizations);
         return "index";
     }
 
-    @PostMapping("/filter")
-    public String filter(Organization organisation, Map<String, Object> model) {
-        return "index";
+    @PostMapping("/")
+    public @ResponseBody List<Organization> filter(@RequestBody Organization organization) {
+        List<Organization> organizations = null;
+
+            // ИНН
+        if (!organization.getInn().equals("") && organization.getFirstname().equals("")
+                && organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
+            organizations = organizationRepo.findAllByInn(organization.getInn());
+
+            //   // ИНН + фамилия + имя
+        } else if (!organization.getInn().equals("") && !organization.getFirstname().equals("")
+                && !organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
+            organizations = organizationRepo.findAllByInnAndLastnameAndFirstname(organization.getInn(), organization.getLastname(), organization.getFirstname());
+
+            // ИНН + фамилия + имя + отчество
+        } else if (!organization.getInn().equals("") && !organization.getFirstname().equals("")
+                && !organization.getLastname().equals("") && !organization.getPatronymic().equals("")) {
+            organizations = organizationRepo.findAllByInnAndLastnameAndFirstnameAndPatronymic(organization.getInn(), organization.getLastname(), organization.getFirstname(), organization.getPatronymic());
+
+            // фамилия + имя + отчество
+        } else if (organization.getInn().equals("") && !organization.getFirstname().equals("")
+                && !organization.getLastname().equals("") && !organization.getPatronymic().equals("")) {
+            organizations = organizationRepo.findAllByLastnameAndFirstnameAndPatronymic(organization.getLastname(), organization.getFirstname(), organization.getPatronymic());
+
+            // имя + отчество
+        } else if (organization.getInn().equals("") && !organization.getFirstname().equals("")
+                && !organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
+            organizations = organizationRepo.findAllByLastnameAndFirstname(organization.getLastname(), organization.getFirstname());
+        }
+
+        return organizations;
     }
 }

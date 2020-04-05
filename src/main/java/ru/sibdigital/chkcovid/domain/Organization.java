@@ -12,6 +12,7 @@ import java.util.Objects;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "organization")
 public class Organization implements Serializable {
     private Integer id;
     private String inn;
