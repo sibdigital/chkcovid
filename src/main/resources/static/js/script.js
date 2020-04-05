@@ -24,19 +24,19 @@ function submitForm(e) {
                 for (var i = 0; i < data.length; i++) {
                     var html =
                         "<tr>" +
-                        "<td>" + data[i].lastname + " " + data[i].firstname + " " + data[i].patronymic + "</td>" +
-                        "<td>" + data[i].inn + "</td>" +
-                        "<td>" + data[i].organizationName + "</td>" +
+                        "<td class=\"text-center\">" + data[i].lastname + " " + data[i].firstname + " " + data[i].patronymic + "</td>" +
+                        "<td class=\"text-center\">" + data[i].inn + "</td>" +
+                        "<td class=\"text-center\">" + data[i].organizationName + "</td>" +
                         "</tr>";
                     $("#orgTable").append(html);
                 }
             }
         }
     });
-
 }
 
 $("#submit").on("mousedown", function (e) {
     e.preventDefault();
 });
+
 $("#submit").on("click", submitForm);
