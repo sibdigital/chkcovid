@@ -32,30 +32,11 @@ public class MainController {
     public @ResponseBody List<Organization> filter(@RequestBody Organization organization) {
         List<Organization> organizations = null;
 
-            // ИНН
-        if (!organization.getInn().equals("") && organization.getFirstname().equals("")
-                && organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
-            organizations = organizationRepo.findAllByInn(organization.getInn());
-
-            //   // ИНН + фамилия + имя
-        } else if (!organization.getInn().equals("") && !organization.getFirstname().equals("")
-                && !organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
+        if (organization.getPatronymic().equals("")) {
             organizations = organizationRepo.findAllByInnAndLastnameAndFirstname(organization.getInn(), organization.getLastname(), organization.getFirstname());
-
-            // ИНН + фамилия + имя + отчество
-        } else if (!organization.getInn().equals("") && !organization.getFirstname().equals("")
-                && !organization.getLastname().equals("") && !organization.getPatronymic().equals("")) {
+        } else {
             organizations = organizationRepo.findAllByInnAndLastnameAndFirstnameAndPatronymic(organization.getInn(), organization.getLastname(), organization.getFirstname(), organization.getPatronymic());
 
-            // фамилия + имя + отчество
-        } else if (organization.getInn().equals("") && !organization.getFirstname().equals("")
-                && !organization.getLastname().equals("") && !organization.getPatronymic().equals("")) {
-            organizations = organizationRepo.findAllByLastnameAndFirstnameAndPatronymic(organization.getLastname(), organization.getFirstname(), organization.getPatronymic());
-
-            // имя + отчество
-        } else if (organization.getInn().equals("") && !organization.getFirstname().equals("")
-                && !organization.getLastname().equals("") && organization.getPatronymic().equals("")) {
-            organizations = organizationRepo.findAllByLastnameAndFirstname(organization.getLastname(), organization.getFirstname());
         }
 
         return organizations;
