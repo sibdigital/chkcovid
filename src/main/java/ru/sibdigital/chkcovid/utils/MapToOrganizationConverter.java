@@ -13,7 +13,7 @@ public class MapToOrganizationConverter {
         List<Organization> organizations = new ArrayList<>(dataToConvert.size());
         for (Map row : dataToConvert){
             Organization organization = Organization.builder()
-                    .itn((String) row.get("itn"))
+                    .inn((String) row.get("inn"))
                     .firstname((String) row.get("firstname"))
                     .lastname((String) row.get("lastname"))
                     .organizationName((String) row.get("organizationName"))
@@ -27,7 +27,7 @@ public class MapToOrganizationConverter {
     public static Organization convert(Map dataToConvert){
 
         Organization organization = Organization.builder()
-                .itn((String) dataToConvert.get("itn"))
+                .inn((String) dataToConvert.get("inn"))
                 .firstname((String) dataToConvert.get("firstname"))
                 .lastname((String) dataToConvert.get("lastname"))
                 .organizationName((String) dataToConvert.get("organizationName"))

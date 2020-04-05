@@ -5,31 +5,40 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@IdClass(OrganizationPK.class)
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Organization {
-    private String itn;
+public class Organization implements Serializable {
+    private int id;
+    private String inn;
     private String organizationName;
     private String lastname;
     private String firstname;
     private String patronymic;
 
     @Id
-    @Column(name = "itn")
-    public String getItn() {
-        return itn;
+    @Column(name = "id")
+    public int getId() {
+        return id;
     }
 
-    public void setItn(String itn) {
-        this.itn = itn;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Basic
+    @Column(name = "inn")
+    public String getInn() {
+        return inn;
+    }
+
+    public void setInn(String inn) {
+        this.inn = inn;
+    }
+
     @Column(name = "organization_name")
     public String getOrganizationName() {
         return organizationName;
@@ -39,7 +48,6 @@ public class Organization {
         this.organizationName = organizationName;
     }
 
-    @Id
     @Column(name = "lastname")
     public String getLastname() {
         return lastname;
@@ -49,7 +57,6 @@ public class Organization {
         this.lastname = lastname;
     }
 
-    @Id
     @Column(name = "firstname")
     public String getFirstname() {
         return firstname;
@@ -59,7 +66,6 @@ public class Organization {
         this.firstname = firstname;
     }
 
-    @Basic
     @Column(name = "patronymic")
     public String getPatronymic() {
         return patronymic;
@@ -74,7 +80,8 @@ public class Organization {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(itn, that.itn) &&
+        return id == that.id &&
+                Objects.equals(inn, that.inn) &&
                 Objects.equals(organizationName, that.organizationName) &&
                 Objects.equals(lastname, that.lastname) &&
                 Objects.equals(firstname, that.firstname) &&
@@ -83,8 +90,7 @@ public class Organization {
 
     @Override
     public int hashCode() {
-        return Objects.hash(itn, organizationName, lastname, firstname, patronymic);
+        return Objects.hash(inn, organizationName, lastname, firstname, patronymic);
     }
-
 
 }

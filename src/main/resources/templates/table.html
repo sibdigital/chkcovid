@@ -1,0 +1,27 @@
+<div class="row mt-2" xmlns:th="http://www.w3.org/1999/xhtml">
+        <div class="col">
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">ИНН</th>
+                        <th scope="col">Наименование организации</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="org : ${organizations}">
+                            <td>
+                                <span th:text="${org.lastname}"></span>
+                                <span th:text="${org.firstname}"></span>
+                                <span th:text="${org.patronymic}"></span>
+                            </td>
+                            <td><span th:text="${org.inn}"></span></td>
+                            <td><span th:text="${org.organizationName}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
