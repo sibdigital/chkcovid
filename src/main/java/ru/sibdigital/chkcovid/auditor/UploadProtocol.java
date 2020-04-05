@@ -13,6 +13,9 @@ public class UploadProtocol {
 
     private String globalMessage = "";
 
+    private int uploaded = 0;
+    private int errors = 0;
+    private int alreadyExists = 0;
 
     public UploadProtocol(String fileName) {
         this.fileName = fileName;
@@ -48,5 +51,29 @@ public class UploadProtocol {
 
     public void setGlobalMessage(String globalMessage) {
         this.globalMessage = globalMessage;
+    }
+
+    public int getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(int uploaded) {
+        this.uploaded = uploaded;
+    }
+
+    public int getErrors() {
+        return errors;
+    }
+
+    public void setErrors(int errors) {
+        this.errors = errors;
+    }
+
+    public int getAlreadyExists() {
+        return alreadyExists;
+    }
+
+    public void setAlreadyExists(int alreadyExists) {
+        this.alreadyExists = alreadyExists;
     }
 }

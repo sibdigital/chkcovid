@@ -13,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Organization implements Serializable {
-    private int id;
+    private Integer id;
     private String inn;
     private String organizationName;
     private String lastname;
@@ -22,11 +22,13 @@ public class Organization implements Serializable {
 
     @Id
     @Column(name = "id")
-    public int getId() {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "org_seq_generator")
+    @SequenceGenerator(name = "org_seq_generator", sequenceName = "SEQ_ORG")
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -93,4 +95,15 @@ public class Organization implements Serializable {
         return Objects.hash(inn, organizationName, lastname, firstname, patronymic);
     }
 
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "id=" + id +
+                ", inn='" + inn + '\'' +
+                ", organizationName='" + organizationName + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                '}';
+    }
 }

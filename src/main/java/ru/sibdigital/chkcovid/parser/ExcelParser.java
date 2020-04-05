@@ -19,6 +19,15 @@ import java.util.*;
 @Component
 public class ExcelParser {
     String[] columnsNamePattern = {"ИНН организации".trim(), "Наименование организации".trim(), "Фамилия".trim(), "Имя".trim(), "Отчество".trim()};
+    final List<String> columnName = new ArrayList<>(){{
+        add("inn");
+        add("organizationName");
+        add("lastname");
+        add("firstname");
+        add("patronymic");
+    }};
+
+
     public List<Map> parseFile(MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         String name = file.getOriginalFilename();
@@ -65,13 +74,7 @@ public class ExcelParser {
     private List<Map> readRows(Sheet sheet) throws IOException {
         Iterator<Row> rowIterator = sheet.iterator();
         final List<Map> fileData = new ArrayList<>();
-        final List<String> columnName = new ArrayList<>(){{
-            add("itn");
-            add("organizationName");
-            add("lastname");
-            add("firstname");
-            add("patronymic");
-        }};
+
         Row row;
         Map<String,String > record;
         DataFormatter fmt = new DataFormatter();
@@ -92,10 +95,10 @@ public class ExcelParser {
             }
 
         }
-        boolean shouldAddRecord = true;
+
         while (rowIterator.hasNext()) {
             record = new HashMap<>(5);
-            shouldAddRecord = true;
+            Boolean[] shouldAddRecordCheckers = {true, true, true, true};
 
             row = rowIterator.next();
             int column = 0;
@@ -106,12 +109,14 @@ public class ExcelParser {
                 // Print the cell for debugging
                 String text = fmt.formatCellValue(cell);
                 if(text.trim().isBlank() && column != columnName.size()-1) {
-                    shouldAddRecord = false;
-                    break;
+                    shouldAddRecordCheckers[column] = false;
                 }
                 record.put(columnName.get(column), text);
             }
-
+            boolean shouldAddRecord = false;
+            for(int i = 0; i < shouldAddRecordCheckers.length; i++){
+                shouldAddRecord |= shouldAddRecordCheckers[i];
+            }
             if(shouldAddRecord) {
                 fileData.add(record);
             }

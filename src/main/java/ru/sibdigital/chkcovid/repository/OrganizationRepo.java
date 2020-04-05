@@ -12,4 +12,5 @@ public interface OrganizationRepo extends  JpaRepository<Organization, Integer>{
     Collection<Organization> findAllByLastname(String lastname);
     Collection<Organization> findAllByPatronymic(String patronymic);
     Collection<Organization> findAllByInn(String inn);
+    Boolean existsByInnAndOrganizationNameAndFirstnameAndLastnameAndPatronymic(String inn, String organizationName, String firstname, String lastname, String patronymic);
 }
