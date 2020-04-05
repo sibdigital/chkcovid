@@ -1,6 +1,8 @@
 package ru.sibdigital.chkcovid.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,6 +10,8 @@ import java.util.Objects;
 @Entity
 @IdClass(OrganisationPK.class)
 @Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Organisation {
     private String itn;
     private String organizationName;
