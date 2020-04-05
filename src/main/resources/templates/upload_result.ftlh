@@ -23,16 +23,16 @@
                                     <tbody>
                                     <#assign end=protocol.parsedData?size>
                                     <#list 0..end as index>
-                                        <tr>
-                                            <td>${protocol.parsedData[index].itn}</td>
-                                            <td>${protocol.parsedData[index].organizationName}</td>
-                                            <td>${protocol.parsedData[index].lastname}</td>
-                                            <td>${protocol.parsedData[index].firstname}</td>
-                                            <td>${protocol.parsedData[index].patronymic}</td>
-                                        </tr>
+                                        <#--<tr>
+                                            <td><#if protocol.parsedData[index].itn??>${protocol.parsedData[index].itn}<#else></#if></td>
+                                            <td><#if protocol.parsedData[index].organizationName??>${protocol.parsedData[index].organizationName}<#else></#if></td>
+                                            <td><#if protocol.parsedData[index].lastname??>${protocol.parsedData[index].lastname}<#else></#if></td>
+                                            <td><#if protocol.parsedData[index].firstname??>${protocol.parsedData[index].firstname}<#else></#if></td>
+                                            <td><#if protocol.parsedData[index].patronymic??>${protocol.parsedData[index].patronymic}<#else></#if></td>
+                                        </tr>-->
                                         <tr>
                                             <#list protocol.statuses[index] as status>
-                                                <td>${status}</td>
+                                                <td><#if status??>${status}<#else></#if></td>
                                             </#list>
                                         </tr>
                                     </#list>
@@ -41,7 +41,6 @@
                             </div>
                         </div>
                     </div>
-
             </div>
         </#list>
     </div>

@@ -11,6 +11,8 @@ public class UploadProtocol {
 
     private List<List> statuses;
 
+    private String globalMessage = "";
+
 
     public UploadProtocol(String fileName) {
         this.fileName = fileName;
@@ -40,5 +42,11 @@ public class UploadProtocol {
         this.statuses = statuses;
     }
 
+    public String getGlobalMessage() {
+        return globalMessage;
+    }
 
+    public void setGlobalMessage(String globalMessage) {
+        this.globalMessage = globalMessage;
+    }
 }

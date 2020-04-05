@@ -28,19 +28,19 @@ public class Validator {
         uploadProtocol.setParsedData(excelRows);
         excelRows.forEach(map -> {
             List<String> errorsInRow = new ArrayList<>(5){{
-                add("OK");
-                add("OK");
-                add("OK");
-                add("OK");
-                add("OK");
+                add("OK"); // ИНН
+                add("OK");  // Организация
+                add("OK");  // Фамилия
+                add("OK");  // Имя
+                add("OK");  //Отчество
             }};
 
             List<Boolean> fieldsAreValid = new ArrayList<>(5){{
-                add(false);
-                add(false);
-                add(false);
-                add(false);
-                add(true);
+                add(false); // ИНН
+                add(false); // Организация
+                add(false); // Фамилия
+                add(false); // Имя
+                add(true);  //Отчество
             }};
 
 

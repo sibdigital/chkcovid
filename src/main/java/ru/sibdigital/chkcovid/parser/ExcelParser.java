@@ -18,7 +18,7 @@ import java.util.*;
 
 @Component
 public class ExcelParser {
-
+    String[] columnsNamePattern = {"ИНН организации".trim(), "Наименование организации".trim(), "Фамилия".trim(), "Имя".trim(), "Отчество".trim()};
     public List<Map> parseFile(MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         String name = file.getOriginalFilename();
@@ -62,7 +62,7 @@ public class ExcelParser {
         return readRows(sheet);
     }
 
-    private List<Map> readRows(Sheet sheet) {
+    private List<Map> readRows(Sheet sheet) throws IOException {
         Iterator<Row> rowIterator = sheet.iterator();
         final List<Map> fileData = new ArrayList<>();
         final List<String> columnName = new ArrayList<>(){{
@@ -75,11 +75,27 @@ public class ExcelParser {
         Row row;
         Map<String,String > record;
         DataFormatter fmt = new DataFormatter();
-        if(rowIterator.hasNext()) rowIterator.next();
+        if(rowIterator.hasNext()) {
 
+
+            Row names = rowIterator.next();
+            for(int column=0; column<columnName.size(); column++) {
+                // If the cell is missing from the file, generate a blank one
+                // (Works by specifying a MissingCellPolicy)
+                Cell cell = names.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                // Print the cell for debugging
+                String name = fmt.formatCellValue(cell).trim();
+                if(!name.equals(columnsNamePattern[column])){
+                    throw new IOException("Файл не соответствует шаблону. Он должен содержать следующие колонки: " + columnsNamePattern);
+                }
+
+            }
+
+        }
+        boolean shouldAddRecord = true;
         while (rowIterator.hasNext()) {
             record = new HashMap<>(5);
-            fileData.add(record);
+            shouldAddRecord = true;
 
             row = rowIterator.next();
             int column = 0;
@@ -88,8 +104,16 @@ public class ExcelParser {
                 // (Works by specifying a MissingCellPolicy)
                 Cell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
                 // Print the cell for debugging
-                record.put(columnName.get(column), fmt.formatCellValue(cell));
-                System.out.println("CELL: " + column + " --> " + cell.toString());
+                String text = fmt.formatCellValue(cell);
+                if(text.trim().isBlank() && column != columnName.size()-1) {
+                    shouldAddRecord = false;
+                    break;
+                }
+                record.put(columnName.get(column), text);
+            }
+
+            if(shouldAddRecord) {
+                fileData.add(record);
             }
 
 

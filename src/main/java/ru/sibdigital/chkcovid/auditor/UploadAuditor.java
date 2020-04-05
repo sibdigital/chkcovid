@@ -23,14 +23,6 @@ public class UploadAuditor {
     @Autowired
     OrganizationRepo organizationRepo;
 
-    /*
-     private String itn;
-    private String organizationName;
-    private String lastname;
-    private String firstname;
-    private String patronymic;
-    */
-
     @PostConstruct
     public void initValidator(){
         this.validator = new Validator(organizationRepo);
@@ -39,13 +31,17 @@ public class UploadAuditor {
 
     private Validator validator;
 
-    public UploadProtocol auditFile(MultipartFile file) throws IOException {
+    public UploadProtocol auditFile(MultipartFile file) {
         UploadProtocol uploadProtocol = new UploadProtocol(file.getOriginalFilename());
 
-        List<Map> excelRows = excelParser.parseFile(file);
+        try {
+            List<Map> excelRows = excelParser.parseFile(file);
 
-        uploadProtocol = validator.validate(excelRows, uploadProtocol);
-
+            uploadProtocol = validator.validate(excelRows, uploadProtocol);
+        } catch (IOException ex) {
+            uploadProtocol.setGlobalMessage(ex.getMessage());
+            log.error(ex.getMessage());
+        }
         return uploadProtocol;
 
 
