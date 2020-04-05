@@ -82,8 +82,8 @@ public class ExcelParser {
             fileData.add(record);
 
             row = rowIterator.next();
-
-            for(int column=0; column<row.getLastCellNum(); column++) {
+            int column = 0;
+            for(column=0; column<columnName.size(); column++) {
                 // If the cell is missing from the file, generate a blank one
                 // (Works by specifying a MissingCellPolicy)
                 Cell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -91,6 +91,7 @@ public class ExcelParser {
                 record.put(columnName.get(column), fmt.formatCellValue(cell));
                 System.out.println("CELL: " + column + " --> " + cell.toString());
             }
+
 
 
         }

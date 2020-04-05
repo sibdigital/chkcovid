@@ -1,6 +1,8 @@
 package ru.sibdigital.chkcovid.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,24 +10,14 @@ import java.util.Objects;
 @Entity
 @IdClass(OrganizationPK.class)
 @Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Organization {
     private String itn;
     private String organizationName;
     private String lastname;
     private String firstname;
     private String patronymic;
-
-
-    public Organization() {
-    }
-
-    public Organization(String itn, String organizationName, String lastname, String firstname, String patronymic) {
-        this.itn = itn;
-        this.organizationName = organizationName;
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.patronymic = patronymic;
-    }
 
     @Id
     @Column(name = "itn")
@@ -94,14 +86,5 @@ public class Organization {
         return Objects.hash(itn, organizationName, lastname, firstname, patronymic);
     }
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "itn='" + itn + '\'' +
-                ", organizationName='" + organizationName + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                '}';
-    }
+
 }

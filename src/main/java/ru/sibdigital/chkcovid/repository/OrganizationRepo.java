@@ -5,7 +5,12 @@ import org.springframework.stereotype.Repository;
 import ru.sibdigital.chkcovid.domain.Organization;
 import ru.sibdigital.chkcovid.domain.OrganizationPK;
 
+import java.util.Collection;
+
 @Repository
 public interface OrganizationRepo extends  JpaRepository<Organization, OrganizationPK>{
-
+    Collection<Organization> findAllByFirstname(String firstname);
+    Collection<Organization> findAllByLastname(String lastname);
+    Collection<Organization> findAllByPatronymic(String patronymic);
+    Collection<Organization> findAllByItn(String itn);
 }
