@@ -1,6 +1,6 @@
-DROP TABLE  IF EXISTS organisation;
+DROP TABLE  IF EXISTS organization;
 
-CREATE TABLE organisation (
+CREATE TABLE organization (
         id serial primary key,
         inn varchar(12) not null,
         organization_name text not null,
