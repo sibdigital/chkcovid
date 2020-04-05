@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrganisationDTO {
+public class OrganizationDTO {
     @NotBlank
     @Size(min = 10, max = 12)
     private String itn;

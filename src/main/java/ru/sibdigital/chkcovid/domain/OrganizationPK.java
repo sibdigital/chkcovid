@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class OrganisationPK implements Serializable {
+public class OrganizationPK implements Serializable {
     private String itn;
     private String lastname;
     private String firstname;
@@ -44,7 +44,7 @@ public class OrganisationPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrganisationPK that = (OrganisationPK) o;
+        OrganizationPK that = (OrganizationPK) o;
         return Objects.equals(itn, that.itn) &&
                 Objects.equals(lastname, that.lastname) &&
                 Objects.equals(firstname, that.firstname);

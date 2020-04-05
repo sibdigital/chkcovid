@@ -6,14 +6,26 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(OrganisationPK.class)
+@IdClass(OrganizationPK.class)
 @Builder(toBuilder = true)
-public class Organisation {
+public class Organization {
     private String itn;
     private String organizationName;
     private String lastname;
     private String firstname;
     private String patronymic;
+
+
+    public Organization() {
+    }
+
+    public Organization(String itn, String organizationName, String lastname, String firstname, String patronymic) {
+        this.itn = itn;
+        this.organizationName = organizationName;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.patronymic = patronymic;
+    }
 
     @Id
     @Column(name = "itn")
@@ -69,7 +81,7 @@ public class Organisation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Organisation that = (Organisation) o;
+        Organization that = (Organization) o;
         return Objects.equals(itn, that.itn) &&
                 Objects.equals(organizationName, that.organizationName) &&
                 Objects.equals(lastname, that.lastname) &&
@@ -82,5 +94,14 @@ public class Organisation {
         return Objects.hash(itn, organizationName, lastname, firstname, patronymic);
     }
 
-
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "itn='" + itn + '\'' +
+                ", organizationName='" + organizationName + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                '}';
+    }
 }

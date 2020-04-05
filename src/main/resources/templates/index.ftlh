@@ -14,7 +14,7 @@
             </thead>
 
             <tbody>
-            <#list organisations as org>
+            <#list organizations as org>
                 <tr>
                     <td>${org.itn}</td>
                     <td>${org.organizationName}</td>

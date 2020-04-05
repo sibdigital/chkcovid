@@ -19,4 +19,4 @@ spring:
     expose-request-attributes: true
 loger:
   level:
-    root: DEBUG
+    root: INFO

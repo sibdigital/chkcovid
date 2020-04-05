@@ -10,4 +10,5 @@ public class LogisticApplication {
 		SpringApplication.run(LogisticApplication.class, args);
 	}
 
+
 }

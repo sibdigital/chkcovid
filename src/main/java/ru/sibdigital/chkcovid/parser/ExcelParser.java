@@ -1,19 +1,40 @@
 package ru.sibdigital.chkcovid.parser;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
+@Component
 public class ExcelParser {
+
+    public List<Map> parseFile(MultipartFile file) throws IOException {
+        InputStream inputStream = file.getInputStream();
+        String name = file.getOriginalFilename();
+        return parseFile(name, inputStream);
+    }
+
+
     public List<Map> parseFile(File file) throws IOException {
         FileInputStream inputStream = new FileInputStream(file);
-        String[] split = file.getName().split("\\.");
+        String name = file.getName();
+        return parseFile(name, inputStream);
+
+    }
+
+    private List<Map> parseFile(String name, InputStream inputStream) throws IOException {
+        String[] split = name.split("\\.");
         String ext = split[split.length-1];
         if(ext.equals("xls")){
             return readXLSFile(inputStream);
@@ -22,10 +43,10 @@ public class ExcelParser {
         } else {
             throw new IOException("Cant read the file with extension ." + ext);
         }
-
     }
 
-    private List<Map> readXLSFile(FileInputStream inputStream) throws IOException {
+
+    private List<Map> readXLSFile(InputStream inputStream) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
         // Get first sheet from the workbook
         Sheet sheet = workbook.getSheetAt(0);
@@ -33,7 +54,7 @@ public class ExcelParser {
         return readRows(sheet);
     }
 
-    private List<Map> readXLSXFile(FileInputStream inputStream) throws IOException {
+    private List<Map> readXLSXFile(InputStream inputStream) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
         // Get first sheet from the workbook
         XSSFSheet sheet = workbook.getSheetAt(0);
@@ -61,14 +82,17 @@ public class ExcelParser {
             fileData.add(record);
 
             row = rowIterator.next();
-            // Get iterator to all cells of current row
-            Iterator<Cell> cellIterator = row.cellIterator();
-            int column = 0;
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
+
+            for(int column=0; column<row.getLastCellNum(); column++) {
+                // If the cell is missing from the file, generate a blank one
+                // (Works by specifying a MissingCellPolicy)
+                Cell cell = row.getCell(column, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                // Print the cell for debugging
                 record.put(columnName.get(column), fmt.formatCellValue(cell));
-                column++;
+                System.out.println("CELL: " + column + " --> " + cell.toString());
             }
+
+
         }
         return fileData;
     }
