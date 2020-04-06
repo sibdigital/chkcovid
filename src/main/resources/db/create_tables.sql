@@ -77,8 +77,7 @@ create table doc_person
 	patronymic varchar(100),
 	is_agree boolean not null,
             short_name varchar(255) not null,
-	inn varchar(12) not null,
-
+	inn varchar(12) not null
 );
 
 alter table doc_person owner to postgres;
