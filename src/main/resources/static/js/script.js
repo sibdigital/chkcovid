@@ -2,23 +2,22 @@
 function submitForm(e) {
     e.preventDefault();
 
-    var organization = {};
-    organization.firstname = $("#firstname").val();
-    organization.lastname = $("#lastname").val();
-    organization.patronymic = $("#patronymic").val();
-    organization.inn = $("#inn").val();
-
     var valid = true;
+    var person = {};
+    person.firstname = $.trim($("#firstname").val());
+    person.lastname = $.trim($("#lastname").val());
+    person.patronymic = $.trim($("#patronymic").val());
+    person.inn = $.trim($("#inn").val());
 
-    for (var key in organization) {
-        if (organization[key] === "" && key !== "patronymic") {
+    for (var key in person) {
+        if (person[key] === "" && key !== "patronymic") {
             $("#" + key).addClass("is-invalid");
             valid = false;
         }
     }
 
     if (valid) {
-        for (var key in organization) {
+        for (var key in person) {
             $("#" + key).removeClass("is-invalid");
         }
 
@@ -26,7 +25,7 @@ function submitForm(e) {
             type: "POST",
             contentType: "application/json",
             url: "/",
-            data: JSON.stringify(organization),
+            data: JSON.stringify(person),
             success: function (data) {
                 $("#orgTable tbody").empty();
 
@@ -40,7 +39,7 @@ function submitForm(e) {
                             "<tr>" +
                             "<td class=\"text-center\">" + data[i].lastname + " " + data[i].firstname + " " + data[i].patronymic + "</td>" +
                             "<td class=\"text-center\">" + data[i].inn + "</td>" +
-                            "<td class=\"text-center\">" + data[i].organizationName + "</td>" +
+                            "<td class=\"text-center\">" + data[i].shortName + "</td>" +
                             "</tr>";
                         $("#orgTable").append(html);
                     }

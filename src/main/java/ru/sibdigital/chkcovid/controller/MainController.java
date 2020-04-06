@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.sibdigital.chkcovid.domain.Organization;
-import ru.sibdigital.chkcovid.repository.OrganizationRepo;
+import ru.sibdigital.chkcovid.domain.DocPerson;
+import ru.sibdigital.chkcovid.repository.DocPersonRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -16,11 +16,10 @@ import java.util.Map;
 public class MainController {
 
     private static final Logger logger = Logger.getLogger(MainController.class);
-    private OrganizationRepo organizationRepo;
+    private DocPersonRepository personRepository;
 
-
-    public MainController(OrganizationRepo organizationRepo) {
-        this.organizationRepo = organizationRepo;
+    public MainController(DocPersonRepository personRepository) {
+        this.personRepository = personRepository;
     }
 
     @GetMapping
@@ -29,16 +28,15 @@ public class MainController {
     }
 
     @PostMapping("/")
-    public @ResponseBody List<Organization> filter(@RequestBody Organization organization) {
-        List<Organization> organizations = null;
+    public @ResponseBody List<DocPerson> filter(@RequestBody DocPerson person) {
+        List<DocPerson> people = null;
 
-        if (organization.getPatronymic().equals("")) {
-            organizations = organizationRepo.findAllByInnAndLastnameAndFirstname(organization.getInn(), organization.getLastname(), organization.getFirstname());
+        if (person.getPatronymic().equals("")) {
+            people = personRepository.findAllByInnAndLastnameAndFirstname(person.getInn(), person.getLastname(), person.getFirstname());
         } else {
-            organizations = organizationRepo.findAllByInnAndLastnameAndFirstnameAndPatronymic(organization.getInn(), organization.getLastname(), organization.getFirstname(), organization.getPatronymic());
-
+            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
         }
 
-        return organizations;
+        return people;
     }
 }
