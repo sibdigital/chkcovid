@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Комитет информационных технологий</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="row justify-content-center mt-2">
+
+    <div class="col" th:each="protocol, stateProtocol: ${protocols}">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6"><span th:text="${protocol.fileName}"></span></div>
+                        <div class="col-12 col-md-6">
+                            <span class="btn  btn-success">Успешно <span class="badge badge-light" th:text="${protocol.getUploaded()}"></span></span>
+                            <span class="btn  btn-warning">Уже существуют <span class="badge badge-light" th:text="${protocol.getAlreadyExists()}"></span></span>
+                            <span class="btn  btn-danger">C ошибкой <span class="badge badge-light" th:text="${protocol.getErrors()}"></span></span>
+                            <span class="btn  btn-info">Всего <span class="badge badge-light" th:text="${protocol.getUploaded()+protocol.getErrors()+protocol.getAlreadyExists()}"></span></span>
+                        </div>
+                    </div>
+
+
+                    </h5>
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ИНН</th>
+                            <th scope="col">Наименование организации</th>
+                            <th scope="col">Фамилия</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Отчество</th>
+                            <th scope="col">Статус</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <div th:each="data, dataState : ${protocol.parsedData}">
+                            <tr >
+                                <td><span th:text="${data.get('inn')}"></span></td>
+                                <td ><span th:text="${data.get('organizationName')}"></span></td>
+                                <td ><span th:text="${data.get('lastname')}"></span></td>
+                                <td ><span th:text="${data.get('firstname')}"></span></td>
+                                <td><span th:text="${data.get('patronymic')}"></span></td>
+                                <td th:class="${data.get('status') == 'OK' ? 'bg-success' : (data.get('status') != 'Уже существует в Базе Данных' ? 'bg-danger' : 'bg-warning') }"><span th:text="${data.get('status')}"></span></td>
+                            </tr>
+
+                            <!--<tr th:if="${data.get('status') == 'ERROR'}">
+                                <div th:each="status: ${protocol.statuses[dataState.index]}">
+                                    <td th:class="${status == '' ? 'bg-white' : 'bg-danger'}">
+                                        <span th:text="${status}" ></span>
+                                    </td>
+                                </div>
+                            </tr>-->
+                        </div>
+
+
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
