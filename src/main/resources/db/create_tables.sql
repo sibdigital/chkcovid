@@ -28,7 +28,8 @@ create table cls_organization
 	email varchar(100) not null,
 	phone varchar(100) not null,
 	status_import integer default 0 not null,
-	time_import timestamp
+	time_import timestamp,
+	hash_code text
 );
 
 alter table cls_organization owner to postgres;
@@ -38,22 +39,25 @@ create table doc_request
 	id serial not null
 		constraint doc_request_pkey
 			primary key,
-	person_office_cnt integer not null,
-	person_remote_cnt integer not null,
-	person_slry_save_cnt integer not null,
-	person_office_fact_cnt integer not null,
+	person_office_cnt integer,
+	person_remote_cnt integer,
+	person_slry_save_cnt integer,
 	id_organization integer not null
 		constraint fk_org
 			references cls_organization,
 	id_department integer not null
 		constraint doc_request_cls_department_id_fk
 			references cls_department,
-	attachment_path varchar(255) not null,
-	status_review integer default 0 not null,
-	time_create timestamp not null,
-	status_import integer default 0 not null,
+	attachment_path varchar(255),
+	status_review integer default 0,
+	time_create timestamp,
+	status_import integer default 0,
 	time_import timestamp,
-	time_review timestamp
+	time_review timestamp,
+    req_basis text default '',
+    is_agree boolean ,
+    is_protect boolean,
+    org_hash_code text
 );
 
 alter table doc_request owner to postgres;
@@ -75,8 +79,9 @@ create table doc_person
 	lastname varchar(100) not null,
 	firstname varchar(100) not null,
 	patronymic varchar(100),
-	is_agree boolean not null,
-            short_name varchar(255) not null,
+	status_import integer default 0,
+	time_import timestamp,
+    short_name varchar(255) not null,
 	inn varchar(12) not null
 );
 
