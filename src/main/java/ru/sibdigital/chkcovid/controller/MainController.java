@@ -2,7 +2,9 @@ package ru.sibdigital.chkcovid.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sibdigital.chkcovid.domain.DocPerson;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
 
@@ -32,9 +34,9 @@ public class MainController {
         List<DocPerson> people = null;
 
         if (patronymic.isBlank()) {
-            people = personRepository.findAllByInnAndLastnameAndFirstname(inn, lastname, firstname);
+            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(inn, lastname, firstname);
         } else {
-            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(inn, lastname, firstname, patronymic);
+            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(inn, lastname, firstname, patronymic);
         }
 
         return people;
