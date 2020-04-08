@@ -18,7 +18,7 @@ function submitForm(e) {
     }
 
     if (inn === "") {
-        $("#patronymic").addClass("is-invalid");
+        $("#inn").addClass("is-invalid");
         valid = false;
     }
 
