@@ -1,6 +1,8 @@
 package ru.sibdigital.chkcovid.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,15 +31,30 @@ public class MainController {
 
     @PostMapping("/")
     public @ResponseBody
-    List<DocPerson> filter(@RequestBody DocPerson person) {
+    ResponseEntity filter(@RequestBody DocPerson person) {
         List<DocPerson> people = null;
 
-        if (person.getPatronymic().equals("")) {
-            people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
-        } else {
-            people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+        if(person.getFirstname() == null) return new ResponseEntity<String>("Firstname required", HttpStatus.BAD_REQUEST);
+        if(person.getLastname() == null) return new ResponseEntity<String>("Lastname required", HttpStatus.BAD_REQUEST);
+        if(person.getInn() == null) return new ResponseEntity<String>("inn required", HttpStatus.BAD_REQUEST);
+        if(person.getFirstname().isBlank()) return new ResponseEntity<String>("Firstname can't be empty", HttpStatus.BAD_REQUEST);
+        if(person.getLastname().isBlank()) return new ResponseEntity<String>("Lastname can't be empty", HttpStatus.BAD_REQUEST);
+        if(person.getInn().isBlank()) return new ResponseEntity<String>("inn  can't be empty", HttpStatus.BAD_REQUEST);
+
+
+
+        try {
+            if (person.getPatronymic().equals("")) {
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
+            } else {
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+            }
+        } catch (Exception e) {
+            logger.error(e.toString());
+            return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
         }
 
-        return people;
+
+        return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
     }
 }
