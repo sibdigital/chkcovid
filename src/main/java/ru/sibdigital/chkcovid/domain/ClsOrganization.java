@@ -13,7 +13,7 @@ public class ClsOrganization {
     private String inn;
     private String ogrn;
     private String addressJur;
-    private Object okvedAdd;
+    private String okvedAdd;
     private String okved;
     private String email;
     private String phone;
@@ -83,11 +83,11 @@ public class ClsOrganization {
 
     @Basic
     @Column(name = "okved_add")
-    public Object getOkvedAdd() {
+    public String getOkvedAdd() {
         return okvedAdd;
     }
 
-    public void setOkvedAdd(Object okvedAdd) {
+    public void setOkvedAdd(String okvedAdd) {
         this.okvedAdd = okvedAdd;
     }
 
