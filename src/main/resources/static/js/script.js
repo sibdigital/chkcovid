@@ -24,7 +24,7 @@ function submitForm(e) {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/",
+            url: "172.18.16.40",
             data: JSON.stringify(person),
             success: function (data) {
                 $("#orgTable tbody").empty();
