@@ -23,7 +23,7 @@ function submitForm(e) {
 
         $.ajax({
             type: "POST",
-            contentType: "application/json, charset=utf-8",
+            contentType: "application/json",
             url: "/",
             data: JSON.stringify(person),
             success: function (data) {
