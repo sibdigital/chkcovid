@@ -2,10 +2,7 @@ package ru.sibdigital.chkcovid.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.sibdigital.chkcovid.domain.DocPerson;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
 
@@ -27,16 +24,32 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/")
-    public @ResponseBody List<DocPerson> filter(@RequestBody DocPerson person) {
+    @GetMapping("/filter")
+    public @ResponseBody List<DocPerson> filter(@RequestParam("inn") String inn,
+                                                @RequestParam("lastname") String lastname,
+                                                @RequestParam("firstname") String firstname,
+                                                @RequestParam("patronymic") String patronymic) {
         List<DocPerson> people = null;
 
-        if (person.getPatronymic().equals("")) {
-            people = personRepository.findAllByInnAndLastnameAndFirstname(person.getInn(), person.getLastname(), person.getFirstname());
+        if (patronymic.isBlank()) {
+            people = personRepository.findAllByInnAndLastnameAndFirstname(inn, lastname, firstname);
         } else {
-            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(inn, lastname, firstname, patronymic);
         }
 
         return people;
     }
+
+//    @PostMapping("/")
+//    public @ResponseBody List<DocPerson> filter(@RequestBody DocPerson person) {
+//        List<DocPerson> people = null;
+//
+//        if (person.getPatronymic().equals("")) {
+//            people = personRepository.findAllByInnAndLastnameAndFirstname(person.getInn(), person.getLastname(), person.getFirstname());
+//        } else {
+//            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+//        }
+//
+//        return people;
+//    }
 }
