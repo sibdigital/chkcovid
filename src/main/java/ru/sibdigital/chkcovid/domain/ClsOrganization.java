@@ -13,12 +13,13 @@ public class ClsOrganization {
     private String inn;
     private String ogrn;
     private String addressJur;
-    private String okvedAdd;
+    private Object okvedAdd;
     private String okved;
     private String email;
     private String phone;
     private int statusImport;
     private Timestamp timeImport;
+    private String hashCode;
 
     @Id
     @Column(name = "id")
@@ -82,11 +83,11 @@ public class ClsOrganization {
 
     @Basic
     @Column(name = "okved_add")
-    public String getOkvedAdd() {
+    public Object getOkvedAdd() {
         return okvedAdd;
     }
 
-    public void setOkvedAdd(String okvedAdd) {
+    public void setOkvedAdd(Object okvedAdd) {
         this.okvedAdd = okvedAdd;
     }
 
@@ -140,6 +141,16 @@ public class ClsOrganization {
         this.timeImport = timeImport;
     }
 
+    @Basic
+    @Column(name = "hash_code")
+    public String getHashCode() {
+        return hashCode;
+    }
+
+    public void setHashCode(String hashCode) {
+        this.hashCode = hashCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -156,11 +167,12 @@ public class ClsOrganization {
                 Objects.equals(okved, that.okved) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(phone, that.phone) &&
-                Objects.equals(timeImport, that.timeImport);
+                Objects.equals(timeImport, that.timeImport) &&
+                Objects.equals(hashCode, that.hashCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, shortName, inn, ogrn, addressJur, okvedAdd, okved, email, phone, statusImport, timeImport);
+        return Objects.hash(id, name, shortName, inn, ogrn, addressJur, okvedAdd, okved, email, phone, statusImport, timeImport, hashCode);
     }
 }

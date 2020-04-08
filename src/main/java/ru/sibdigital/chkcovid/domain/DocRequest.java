@@ -8,18 +8,21 @@ import java.util.Objects;
 @Table(name = "doc_request")
 public class DocRequest {
     private int id;
-    private int personOfficeCnt;
-    private int personRemoteCnt;
-    private int personSlrySaveCnt;
-    private int personOfficeFactCnt;
+    private Integer personOfficeCnt;
+    private Integer personRemoteCnt;
+    private Integer personSlrySaveCnt;
     private int idOrganization;
     private int idDepartment;
     private String attachmentPath;
-    private int statusReview;
+    private Integer statusReview;
     private Timestamp timeCreate;
-    private int statusImport;
+    private Integer statusImport;
     private Timestamp timeImport;
     private Timestamp timeReview;
+    private String reqBasis;
+    private Boolean isAgree;
+    private Boolean isProtect;
+    private String orgHashCode;
 
     @Id
     @Column(name = "id")
@@ -33,42 +36,32 @@ public class DocRequest {
 
     @Basic
     @Column(name = "person_office_cnt")
-    public int getPersonOfficeCnt() {
+    public Integer getPersonOfficeCnt() {
         return personOfficeCnt;
     }
 
-    public void setPersonOfficeCnt(int personOfficeCnt) {
+    public void setPersonOfficeCnt(Integer personOfficeCnt) {
         this.personOfficeCnt = personOfficeCnt;
     }
 
     @Basic
     @Column(name = "person_remote_cnt")
-    public int getPersonRemoteCnt() {
+    public Integer getPersonRemoteCnt() {
         return personRemoteCnt;
     }
 
-    public void setPersonRemoteCnt(int personRemoteCnt) {
+    public void setPersonRemoteCnt(Integer personRemoteCnt) {
         this.personRemoteCnt = personRemoteCnt;
     }
 
     @Basic
     @Column(name = "person_slry_save_cnt")
-    public int getPersonSlrySaveCnt() {
+    public Integer getPersonSlrySaveCnt() {
         return personSlrySaveCnt;
     }
 
-    public void setPersonSlrySaveCnt(int personSlrySaveCnt) {
+    public void setPersonSlrySaveCnt(Integer personSlrySaveCnt) {
         this.personSlrySaveCnt = personSlrySaveCnt;
-    }
-
-    @Basic
-    @Column(name = "person_office_fact_cnt")
-    public int getPersonOfficeFactCnt() {
-        return personOfficeFactCnt;
-    }
-
-    public void setPersonOfficeFactCnt(int personOfficeFactCnt) {
-        this.personOfficeFactCnt = personOfficeFactCnt;
     }
 
     @Basic
@@ -103,11 +96,11 @@ public class DocRequest {
 
     @Basic
     @Column(name = "status_review")
-    public int getStatusReview() {
+    public Integer getStatusReview() {
         return statusReview;
     }
 
-    public void setStatusReview(int statusReview) {
+    public void setStatusReview(Integer statusReview) {
         this.statusReview = statusReview;
     }
 
@@ -123,11 +116,11 @@ public class DocRequest {
 
     @Basic
     @Column(name = "status_import")
-    public int getStatusImport() {
+    public Integer getStatusImport() {
         return statusImport;
     }
 
-    public void setStatusImport(int statusImport) {
+    public void setStatusImport(Integer statusImport) {
         this.statusImport = statusImport;
     }
 
@@ -151,28 +144,71 @@ public class DocRequest {
         this.timeReview = timeReview;
     }
 
+    @Basic
+    @Column(name = "req_basis")
+    public String getReqBasis() {
+        return reqBasis;
+    }
+
+    public void setReqBasis(String reqBasis) {
+        this.reqBasis = reqBasis;
+    }
+
+    @Basic
+    @Column(name = "is_agree")
+    public Boolean getAgree() {
+        return isAgree;
+    }
+
+    public void setAgree(Boolean agree) {
+        isAgree = agree;
+    }
+
+    @Basic
+    @Column(name = "is_protect")
+    public Boolean getProtect() {
+        return isProtect;
+    }
+
+    public void setProtect(Boolean protect) {
+        isProtect = protect;
+    }
+
+    @Basic
+    @Column(name = "org_hash_code")
+    public String getOrgHashCode() {
+        return orgHashCode;
+    }
+
+    public void setOrgHashCode(String orgHashCode) {
+        this.orgHashCode = orgHashCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DocRequest that = (DocRequest) o;
         return id == that.id &&
-                personOfficeCnt == that.personOfficeCnt &&
-                personRemoteCnt == that.personRemoteCnt &&
-                personSlrySaveCnt == that.personSlrySaveCnt &&
-                personOfficeFactCnt == that.personOfficeFactCnt &&
                 idOrganization == that.idOrganization &&
                 idDepartment == that.idDepartment &&
-                statusReview == that.statusReview &&
-                statusImport == that.statusImport &&
+                Objects.equals(personOfficeCnt, that.personOfficeCnt) &&
+                Objects.equals(personRemoteCnt, that.personRemoteCnt) &&
+                Objects.equals(personSlrySaveCnt, that.personSlrySaveCnt) &&
                 Objects.equals(attachmentPath, that.attachmentPath) &&
+                Objects.equals(statusReview, that.statusReview) &&
                 Objects.equals(timeCreate, that.timeCreate) &&
+                Objects.equals(statusImport, that.statusImport) &&
                 Objects.equals(timeImport, that.timeImport) &&
-                Objects.equals(timeReview, that.timeReview);
+                Objects.equals(timeReview, that.timeReview) &&
+                Objects.equals(reqBasis, that.reqBasis) &&
+                Objects.equals(isAgree, that.isAgree) &&
+                Objects.equals(isProtect, that.isProtect) &&
+                Objects.equals(orgHashCode, that.orgHashCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, personOfficeFactCnt, idOrganization, idDepartment, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview);
+        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, idOrganization, idDepartment, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview, reqBasis, isAgree, isProtect, orgHashCode);
     }
 }

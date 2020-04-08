@@ -1,6 +1,7 @@
 package ru.sibdigital.chkcovid.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +12,8 @@ public class DocPerson {
     private String lastname;
     private String firstname;
     private String patronymic;
-    private boolean isAgree;
+    private Integer statusImport;
+    private Timestamp timeImport;
     private String shortName;
     private String inn;
 
@@ -66,13 +68,23 @@ public class DocPerson {
     }
 
     @Basic
-    @Column(name = "is_agree")
-    public boolean isAgree() {
-        return isAgree;
+    @Column(name = "status_import")
+    public Integer getStatusImport() {
+        return statusImport;
     }
 
-    public void setAgree(boolean agree) {
-        isAgree = agree;
+    public void setStatusImport(Integer statusImport) {
+        this.statusImport = statusImport;
+    }
+
+    @Basic
+    @Column(name = "time_import")
+    public Timestamp getTimeImport() {
+        return timeImport;
+    }
+
+    public void setTimeImport(Timestamp timeImport) {
+        this.timeImport = timeImport;
     }
 
     @Basic
@@ -102,16 +114,17 @@ public class DocPerson {
         DocPerson docPerson = (DocPerson) o;
         return id == docPerson.id &&
                 idRequest == docPerson.idRequest &&
-                isAgree == docPerson.isAgree &&
                 Objects.equals(lastname, docPerson.lastname) &&
                 Objects.equals(firstname, docPerson.firstname) &&
                 Objects.equals(patronymic, docPerson.patronymic) &&
+                Objects.equals(statusImport, docPerson.statusImport) &&
+                Objects.equals(timeImport, docPerson.timeImport) &&
                 Objects.equals(shortName, docPerson.shortName) &&
                 Objects.equals(inn, docPerson.inn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idRequest, lastname, firstname, patronymic, isAgree, shortName, inn);
+        return Objects.hash(id, idRequest, lastname, firstname, patronymic, statusImport, timeImport, shortName, inn);
     }
 }
