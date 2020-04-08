@@ -3,7 +3,8 @@ package ru.sibdigital.chkcovid.controller;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sibdigital.chkcovid.domain.DocPerson;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
@@ -26,32 +27,17 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/filter")
-    public @ResponseBody List<DocPerson> filter(@RequestParam("inn") String inn,
-                                                @RequestParam("lastname") String lastname,
-                                                @RequestParam("firstname") String firstname,
-                                                @RequestParam("patronymic") String patronymic) {
+    @PostMapping("/")
+    public @ResponseBody
+    List<DocPerson> filter(@RequestBody DocPerson person) {
         List<DocPerson> people = null;
 
-        if (patronymic.isBlank()) {
-            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(inn, lastname, firstname);
+        if (person.getPatronymic().equals("")) {
+            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
         } else {
-            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(inn, lastname, firstname, patronymic);
+            people = personRepository.findAllByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
         }
 
         return people;
     }
-
-//    @PostMapping("/")
-//    public @ResponseBody List<DocPerson> filter(@RequestBody DocPerson person) {
-//        List<DocPerson> people = null;
-//
-//        if (person.getPatronymic().equals("")) {
-//            people = personRepository.findAllByInnAndLastnameAndFirstname(person.getInn(), person.getLastname(), person.getFirstname());
-//        } else {
-//            people = personRepository.findAllByInnAndLastnameAndFirstnameAndPatronymic(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
-//        }
-//
-//        return people;
-//    }
 }
