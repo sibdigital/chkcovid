@@ -23,10 +23,11 @@ function submitForm(e) {
 
         $.ajax({
             type: "POST",
-            contentType: "application/json",
-            url: "172.18.16.40",
+            contentType: "application/json, charset=utf-8",
+            url: "/",
             data: JSON.stringify(person),
             success: function (data) {
+                console.log(data);
                 $("#orgTable tbody").empty();
 
                 if (data.length === 0) {
@@ -44,7 +45,11 @@ function submitForm(e) {
                         $("#orgTable").append(html);
                     }
                 }
+            },
+            error: function (data) {
+                console.log(data);
             }
+
         });
     }
 }
