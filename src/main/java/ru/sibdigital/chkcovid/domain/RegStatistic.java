@@ -26,7 +26,9 @@ public class RegStatistic {
     }
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generator")
+    @SequenceGenerator(name = "generator", sequenceName = "reg_statistic_id_seq", allocationSize = 1)
     public int getId() {
         return id;
     }
