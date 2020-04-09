@@ -45,8 +45,6 @@ public class MainController {
         if(person.getLastname().isBlank()) return new ResponseEntity<String>("Lastname can't be empty", HttpStatus.BAD_REQUEST);
         if(person.getInn().isBlank()) return new ResponseEntity<String>("inn  can't be empty", HttpStatus.BAD_REQUEST);
 
-
-
         try {
             if (person.getPatronymic().equals("")) {
                 people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
@@ -63,7 +61,12 @@ public class MainController {
     }
 
     private void saveStatistic(DocPerson person, List<DocPerson> people) {
-        RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
-        statisticRepository.save(regStatistic);
+        try {
+            RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
+            statisticRepository.save(regStatistic);
+        }
+        catch (Exception e) {
+            logger.error(e.toString());
+        }
     }
 }
