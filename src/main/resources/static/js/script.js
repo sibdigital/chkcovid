@@ -26,7 +26,6 @@ function submitForm(e) {
             url: "/",
             data: JSON.stringify(person),
             success: function (data) {
-                console.log(data);
                 $("#orgTable tbody").empty();
 
                 if (data.length === 0) {
@@ -37,16 +36,15 @@ function submitForm(e) {
                     for (var i = 0; i < data.length; i++) {
                         var html =
                             "<tr>" +
-                            "<td class=\"text-center\">" + data[i].lastname + " " + data[i].firstname + " " + data[i].patronymic + "</td>" +
-                            "<td class=\"text-center\">" + data[i].inn + "</td>" +
-                            "<td class=\"text-center\">" + data[i].shortName + "</td>" +
+                            "<td class=\"text-center\">" + (data[i].lastname == null ? "" : data[i].lastname) + " " + (data[i].firstname == null ? "" : data[i].firstname) + " " + (data[i].patronymic == null ? "" : data[i].patronymic) + "</td>" +
+                            "<td class=\"text-center\">" + (data[i].inn == null ? "" : data[i].inn) + "</td>" +
+                            "<td class=\"text-center\">" + (data[i].shortName == null ? "" : data[i].shortName) + "</td>" +
                             "</tr>";
                         $("#orgTable").append(html);
                     }
                 }
             },
             error: function (data) {
-                console.log(data);
             }
 
         });
