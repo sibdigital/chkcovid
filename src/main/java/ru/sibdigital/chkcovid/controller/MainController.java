@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.sibdigital.chkcovid.domain.DocPerson;
+import ru.sibdigital.chkcovid.domain.RegStatistic;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
+import ru.sibdigital.chkcovid.repository.RegStatisticRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -19,9 +21,11 @@ public class MainController {
 
     private static final Logger logger = Logger.getLogger(MainController.class);
     private DocPersonRepository personRepository;
+    private RegStatisticRepository statisticRepository;
 
-    public MainController(DocPersonRepository personRepository) {
+    public MainController(DocPersonRepository personRepository, RegStatisticRepository statisticRepository) {
         this.personRepository = personRepository;
+        this.statisticRepository = statisticRepository;
     }
 
     @GetMapping
@@ -51,10 +55,15 @@ public class MainController {
             }
         } catch (Exception e) {
             logger.error(e.toString());
+            this.saveStatistic(person, people);
             return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
         }
-
-
+        this.saveStatistic(person, people);
         return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
+    }
+
+    private void saveStatistic(DocPerson person, List<DocPerson> people) {
+        RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
+        statisticRepository.save(regStatistic);
     }
 }
