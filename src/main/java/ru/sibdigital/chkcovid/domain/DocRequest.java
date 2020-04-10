@@ -11,7 +11,8 @@ public class DocRequest {
     private Integer personOfficeCnt;
     private Integer personRemoteCnt;
     private Integer personSlrySaveCnt;
-    private int idOrganization;
+    //private int idOrganization;
+    private ClsOrganization organization;
     //private int idDepartment;
     private ClsDepartment department;
     private String attachmentPath;
@@ -65,14 +66,14 @@ public class DocRequest {
         this.personSlrySaveCnt = personSlrySaveCnt;
     }
 
-    @Basic
-    @Column(name = "id_organization")
-    public int getIdOrganization() {
-        return idOrganization;
+    @OneToOne
+    @JoinColumn(name = "id_organization", referencedColumnName = "id")
+    public ClsOrganization getOrganization() {
+        return organization;
     }
 
-    public void setIdOrganization(int idOrganization) {
-        this.idOrganization = idOrganization;
+    public void setOrganization(ClsOrganization organization) {
+        this.organization = organization;
     }
 
     @OneToOne
@@ -202,8 +203,9 @@ public class DocRequest {
         if (o == null || getClass() != o.getClass()) return false;
         DocRequest that = (DocRequest) o;
         return id == that.id &&
-                idOrganization == that.idOrganization &&
+                //idOrganization == that.idOrganization &&
                 //idDepartment == that.idDepartment &&
+                Objects.equals(organization, that.organization) &&
                 Objects.equals(department, that.department) &&
                 Objects.equals(personOfficeCnt, that.personOfficeCnt) &&
                 Objects.equals(personRemoteCnt, that.personRemoteCnt) &&
@@ -222,6 +224,6 @@ public class DocRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, idOrganization, department, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview, reqBasis, isAgree, isProtect, orgHashCode);
+        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, organization, department, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview, reqBasis, isAgree, isProtect, orgHashCode);
     }
 }
