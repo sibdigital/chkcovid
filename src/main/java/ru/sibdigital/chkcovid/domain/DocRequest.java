@@ -25,6 +25,7 @@ public class DocRequest {
     private Boolean isAgree;
     private Boolean isProtect;
     private String orgHashCode;
+    private String rejectComment;
 
     @Id
     @Column(name = "id")
@@ -195,6 +196,16 @@ public class DocRequest {
 
     public void setOrgHashCode(String orgHashCode) {
         this.orgHashCode = orgHashCode;
+    }
+
+    @Basic
+    @Column(name = "reject_comment")
+    public String getRejectComment(){
+        return rejectComment;
+    }
+
+    public void setRejectComment(String rejectComment){
+        this.rejectComment = rejectComment;
     }
 
     @Override

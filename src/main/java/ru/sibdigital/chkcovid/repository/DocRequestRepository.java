@@ -9,12 +9,12 @@ import ru.sibdigital.chkcovid.domain.DocRequest;
 import java.util.List;
 
 @Repository
-public interface DocRequestRepo extends JpaRepository<DocRequest, Long> {
+public interface DocRequestRepository extends JpaRepository<DocRequest, Long> {
 
     @Query(value = "SELECT dr.* FROM doc_request dr, cls_organization org WHERE  dr.id_organization = org.id " +
-            " and (trim(org.inn) like %:inn% or lower(trim(org.short_name)) like %:shortName%  ) " +
+            " and (trim(org.inn) = trim(:inn) and lower(trim(org.short_name)) like %:shortName%  ) " +
             " ORDER BY dr.time_review DESC limit 100",
             nativeQuery = true)
-    List<DocRequest> findTop100ByInnOrShortName(@Param("inn") String inn, @Param("shortName") String shortName );
+    List<DocRequest> findTop100ByInnOrShortName(@Param("shortName") String shortName, @Param("inn") String inn);
 
 }
