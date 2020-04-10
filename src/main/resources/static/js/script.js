@@ -25,14 +25,18 @@ function submitForm(e) {
             contentType: "application/json",
             url: "/",
             data: JSON.stringify(person),
-            success: function (data) {
+            beforeSend: function () {
                 $("#orgTable tbody").empty();
+                $("#spinner").attr("style", "display:block");
+                $("#noResults").attr("style", "display:none");
+            },
+            success: function (data) {
+                $("#spinner").attr("style", "display:none");
+                $("#noResults").attr("style", "display:none");
 
                 if (data.length === 0) {
-                    $("#noResults").attr("style", "display:block")
+                    $("#noResults").attr("style", "display:block");
                 } else {
-                    $("#noResults").attr("style", "display:none")
-
                     for (var i = 0; i < data.length; i++) {
                         var html =
                             "<tr>" +
