@@ -63,7 +63,11 @@ public class MainController {
     }
 
     private void saveStatistic(DocPerson person, List<DocPerson> people) {
-        RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
-        statisticRepository.save(regStatistic);
+        try {
+            RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
+            statisticRepository.save(regStatistic);
+        }catch (Exception ex){
+            logger.error(ex.toString());
+        }
     }
 }
