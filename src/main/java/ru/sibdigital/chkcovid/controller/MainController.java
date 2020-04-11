@@ -40,46 +40,31 @@ public class MainController {
         return "index";
     }
 
-//    @PostMapping("/")
-//    public @ResponseBody
-//    ResponseEntity filter(@RequestBody DocPerson person) {
-//        List<DocPerson> people = null;
-//
-//        if(person.getFirstname() == null) return new ResponseEntity<String>("Firstname required", HttpStatus.BAD_REQUEST);
-//        if(person.getLastname() == null) return new ResponseEntity<String>("Lastname required", HttpStatus.BAD_REQUEST);
-//        if(person.getInn() == null) return new ResponseEntity<String>("inn required", HttpStatus.BAD_REQUEST);
-//        if(person.getFirstname().isBlank()) return new ResponseEntity<String>("Firstname can't be empty", HttpStatus.BAD_REQUEST);
-//        if(person.getLastname().isBlank()) return new ResponseEntity<String>("Lastname can't be empty", HttpStatus.BAD_REQUEST);
-//        if(person.getInn().isBlank()) return new ResponseEntity<String>("inn  can't be empty", HttpStatus.BAD_REQUEST);
-//
-//        try {
-//            if (person.getPatronymic().equals("")) {
-//                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
-//            } else {
-//                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
-//            }
-//        } catch (Exception e) {
-//            logger.error(e.toString());
-//            this.saveStatistic(person, people);
-//            return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
-//        }
-//        this.saveStatistic(person, people);
-//        return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
-//    }
-
     @PostMapping("/")
     public @ResponseBody
-    ResponseEntity filter(@RequestBody ClsOrganization clsOrganization) {
-        List<DocRequest> docRequests = null;
-        if(clsOrganization.getShortName() == null) return new ResponseEntity<String>("Shortname required", HttpStatus.BAD_REQUEST);
-        if(clsOrganization.getInn() == null) return new ResponseEntity<String>("inn required", HttpStatus.BAD_REQUEST);
+    ResponseEntity filter(@RequestBody DocPerson person) {
+        List<DocPerson> people = null;
+
+        if(person.getFirstname() == null) return new ResponseEntity<String>("Firstname required", HttpStatus.BAD_REQUEST);
+        if(person.getLastname() == null) return new ResponseEntity<String>("Lastname required", HttpStatus.BAD_REQUEST);
+        if(person.getInn() == null) return new ResponseEntity<String>("inn required", HttpStatus.BAD_REQUEST);
+        if(person.getFirstname().isBlank()) return new ResponseEntity<String>("Firstname can't be empty", HttpStatus.BAD_REQUEST);
+        if(person.getLastname().isBlank()) return new ResponseEntity<String>("Lastname can't be empty", HttpStatus.BAD_REQUEST);
+        if(person.getInn().isBlank()) return new ResponseEntity<String>("inn  can't be empty", HttpStatus.BAD_REQUEST);
+
         try {
-            docRequests = docRequestRepository.findTop100ByInnOrShortName(clsOrganization.getShortName().trim().toLowerCase(), clsOrganization.getInn().trim().toLowerCase());
+            if (person.getPatronymic().equals("")) {
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
+            } else {
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+            }
         } catch (Exception e) {
             logger.error(e.toString());
-            return new ResponseEntity<List<DocRequest>>(docRequests, HttpStatus.OK);
+            this.saveStatistic(person, people);
+            return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
         }
-        return new ResponseEntity<List<DocRequest>>(docRequests, HttpStatus.OK);
+        this.saveStatistic(person, people);
+        return new ResponseEntity<List<DocPerson>>(people, HttpStatus.OK);
     }
 
     private void saveStatistic(DocPerson person, List<DocPerson> people) {

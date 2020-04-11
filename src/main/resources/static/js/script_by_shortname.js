@@ -3,26 +3,20 @@ function submitForm(e) {
 
     var valid = true;
     var org = {};
-    org.shortName = $.trim($("#shortname").val());
     org.inn = $.trim($("#inn_org").val());
 
-    if (org["shortName"] === ""){
-        $("#shortname").addClass("is-invalid");
-        valid = false;
-    }
     if (org["inn"] === ""){
         $("#inn_org").addClass("is-invalid");
         valid = false;
     }
 
     if (valid) {
-        $("#shortname").removeClass("is-invalid");
         $("#inn_org").removeClass("is-invalid");
 
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/",
+            url: "/org_check/",
             data: JSON.stringify(org),
             beforeSend: function () {
                 $("#orgShortnameTable tbody").empty();
@@ -42,15 +36,11 @@ function submitForm(e) {
                         var created = (('0' + dateCreate.getDate()).slice(-2) + '.' + ('0' + (dateCreate.getMonth() + 1)).slice(-2) + '.' + dateCreate.getFullYear());
                         var reviewed = "";
                         if (data[i].statusReview === 0){
-                            status ="Не обработано";
+                            status ="На рассмотрении";
                             reviewed = "-"
                         }
-                        else if (data[i].statusReview === 1){
-                            status = "Принято";
-                            reviewed =(('0' + dateReview.getDate()).slice(-2) + '.' + ('0' + (dateReview.getMonth() + 1)).slice(-2) + '.' + dateReview.getFullYear());
-                        }
                         else{
-                            status = "Отклонено по причине: " + (data[i].rejectComment === null ? "причина не указана" : data[i].rejectComment);
+                            status = "Решение отправлено на эл. почту заявителя";
                             reviewed = (('0' + dateReview.getDate()).slice(-2) + '.' + ('0' + (dateReview.getMonth() + 1)).slice(-2) + '.' + dateReview.getFullYear());
                         }
                         var html =

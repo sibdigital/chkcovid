@@ -12,9 +12,9 @@ import java.util.List;
 public interface DocRequestRepository extends JpaRepository<DocRequest, Long> {
 
     @Query(value = "SELECT dr.* FROM doc_request dr, cls_organization org WHERE  dr.id_organization = org.id " +
-            " and (trim(org.inn) = trim(:inn) and lower(trim(org.short_name)) like %:shortName%  ) " +
+            " and (trim(org.inn) = trim(:inn)) " +
             " ORDER BY dr.time_review DESC limit 100",
             nativeQuery = true)
-    List<DocRequest> findTop100ByInnOrShortName(@Param("shortName") String shortName, @Param("inn") String inn);
+    List<DocRequest> findTop100ByInnOrShortName(@Param("inn") String inn);
 
 }

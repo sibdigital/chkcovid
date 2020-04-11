@@ -17,9 +17,17 @@
 <body>
 <div th:insert="navbar"></div>
 <main role="main" class="container">
-    <div th:insert="filter"></div>
-    <div th:insert="table"></div>
+    <div th:insert="filter_by_shortname"></div>
+    <div th:insert="table_by_shortname"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </main>
-<script src="js/script.js"></script>
+<footer class="fixed-bottom page-footer navbar-dark bg-dark text-center" >
+    <div class="container" th:insert="footer"></div>
+</footer>
+<script src="js/script_by_shortname.js"></script>
 </body>
 </html>
