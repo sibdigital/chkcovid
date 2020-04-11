@@ -23,7 +23,8 @@ public class MainController {
     private DocPersonRepository personRepository;
     private RegStatisticRepository statisticRepository;
 
-    public MainController(DocPersonRepository personRepository, RegStatisticRepository statisticRepository) {
+    public MainController(DocPersonRepository personRepository,
+                          RegStatisticRepository statisticRepository) {
         this.personRepository = personRepository;
         this.statisticRepository = statisticRepository;
     }
@@ -66,8 +67,9 @@ public class MainController {
         try {
             RegStatistic regStatistic = new RegStatistic(person.getLastname(), person.getFirstname(), person.getPatronymic(), person.getInn(), people.size());
             statisticRepository.save(regStatistic);
-        }catch (Exception ex){
-            logger.error(ex.toString());
+        }
+        catch (Exception e) {
+            logger.error(e.toString());
         }
     }
 }

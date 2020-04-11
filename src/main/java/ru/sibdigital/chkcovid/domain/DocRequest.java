@@ -11,8 +11,10 @@ public class DocRequest {
     private Integer personOfficeCnt;
     private Integer personRemoteCnt;
     private Integer personSlrySaveCnt;
-    private int idOrganization;
-    private int idDepartment;
+    //private int idOrganization;
+    private ClsOrganization organization;
+    //private int idDepartment;
+    private ClsDepartment department;
     private String attachmentPath;
     private Integer statusReview;
     private Timestamp timeCreate;
@@ -23,6 +25,7 @@ public class DocRequest {
     private Boolean isAgree;
     private Boolean isProtect;
     private String orgHashCode;
+    private String rejectComment;
 
     @Id
     @Column(name = "id")
@@ -64,25 +67,36 @@ public class DocRequest {
         this.personSlrySaveCnt = personSlrySaveCnt;
     }
 
-    @Basic
-    @Column(name = "id_organization")
-    public int getIdOrganization() {
-        return idOrganization;
+    @OneToOne
+    @JoinColumn(name = "id_organization", referencedColumnName = "id")
+    public ClsOrganization getOrganization() {
+        return organization;
     }
 
-    public void setIdOrganization(int idOrganization) {
-        this.idOrganization = idOrganization;
+    public void setOrganization(ClsOrganization organization) {
+        this.organization = organization;
     }
 
-    @Basic
-    @Column(name = "id_department")
-    public int getIdDepartment() {
-        return idDepartment;
+    @OneToOne
+    @JoinColumn(name = "id_department", referencedColumnName = "id")
+    public ClsDepartment getDepartment() {
+        return department;
     }
 
-    public void setIdDepartment(int idDepartment) {
-        this.idDepartment = idDepartment;
+    public void setDepartment(ClsDepartment department) {
+        this.department = department;
     }
+
+
+//    @Basic
+//    @Column(name = "id_department")
+//    public int getIdDepartment() {
+//        return idDepartment;
+//    }
+//
+//    public void setIdDepartment(int idDepartment) {
+//        this.idDepartment = idDepartment;
+//    }
 
     @Basic
     @Column(name = "attachment_path")
@@ -184,14 +198,26 @@ public class DocRequest {
         this.orgHashCode = orgHashCode;
     }
 
+    @Basic
+    @Column(name = "reject_comment")
+    public String getRejectComment(){
+        return rejectComment;
+    }
+
+    public void setRejectComment(String rejectComment){
+        this.rejectComment = rejectComment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DocRequest that = (DocRequest) o;
         return id == that.id &&
-                idOrganization == that.idOrganization &&
-                idDepartment == that.idDepartment &&
+                //idOrganization == that.idOrganization &&
+                //idDepartment == that.idDepartment &&
+                Objects.equals(organization, that.organization) &&
+                Objects.equals(department, that.department) &&
                 Objects.equals(personOfficeCnt, that.personOfficeCnt) &&
                 Objects.equals(personRemoteCnt, that.personRemoteCnt) &&
                 Objects.equals(personSlrySaveCnt, that.personSlrySaveCnt) &&
@@ -209,6 +235,6 @@ public class DocRequest {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, idOrganization, idDepartment, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview, reqBasis, isAgree, isProtect, orgHashCode);
+        return Objects.hash(id, personOfficeCnt, personRemoteCnt, personSlrySaveCnt, organization, department, attachmentPath, statusReview, timeCreate, statusImport, timeImport, timeReview, reqBasis, isAgree, isProtect, orgHashCode);
     }
 }
