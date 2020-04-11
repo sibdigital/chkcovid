@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "doc_person")
+@Table(name = "v_doc_person_and_org_info")
 public class DocPerson {
     private int id;
     private int idRequest;

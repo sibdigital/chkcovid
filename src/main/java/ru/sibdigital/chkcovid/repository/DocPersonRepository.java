@@ -13,14 +13,14 @@ public interface DocPersonRepository extends JpaRepository<DocPerson, Integer> {
 
     List<DocPerson> findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(String inn, String lastname, String firstname, String patronymic);
 */
-    @Query(nativeQuery = true, value = "SELECT person.* FROM doc_person person WHERE " +
+    @Query(nativeQuery = true, value = "SELECT person.* FROM v_doc_person_and_org_info person WHERE " +
         " upper(trim(person.inn)) = upper(trim(:inn))" +
         " and upper(trim(person.lastname)) = upper(trim(:lastname))" +
         " and upper(trim(person.firstname)) = upper(trim(:firstname)) " +
         " ORDER BY person.id_request DESC LIMIT 1 ")
     List<DocPerson> findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(@Param("inn")String inn, @Param("lastname")String lastname, @Param("firstname")String firstname);
 
-    @Query(nativeQuery = true, value = "SELECT person.* FROM doc_person person WHERE " +
+    @Query(nativeQuery = true, value = "SELECT person.* FROM v_doc_person_and_org_info person WHERE " +
             " upper(trim(person.inn)) = upper(trim(:inn))" +
             " and upper(trim(person.lastname)) = upper(trim(:lastname))" +
             " and upper(trim(person.firstname)) = upper(trim(:firstname)) " +
