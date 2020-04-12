@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.sibdigital.chkcovid.domain.DocPerson;
 import ru.sibdigital.chkcovid.domain.DocRequest;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
-import ru.sibdigital.chkcovid.repository.DocRequestRepo;
+import ru.sibdigital.chkcovid.repository.DocRequestRepository;
 
 import javax.print.Doc;
 import java.util.List;
@@ -32,7 +32,7 @@ class MainControllerTest {
     private DocPersonRepository personRepository;
 
     @Autowired
-    private DocRequestRepo docRequestRepo;
+    private DocRequestRepository docRequestRepo;
 
     //@Test
     void filter() {
@@ -56,7 +56,7 @@ class MainControllerTest {
     void testFindTop100ByInnOrShortName() {
 
         String innOrShortName = "Бест";
-        List<DocRequest> requests = docRequestRepo.findTop100ByInnOrShortName(innOrShortName.trim().toLowerCase() , innOrShortName.trim().toLowerCase());
+        List<DocRequest> requests = docRequestRepo.findTop100ByInnOrShortName(innOrShortName.trim().toLowerCase());
         assertNotNull(requests);
 
         log.info("requests size:" + requests.size());
