@@ -11,9 +11,8 @@ public class DocDachaAddr {
     private int id;
     private String district;
     private String address;
-    @ManyToOne
-    @JoinColumn(name = "id_doc_dacha", nullable = false)
-    private DocDacha docDachaByIdDocDacha;
+    @Column(name = "id_doc_dacha", nullable = false)
+    private int docDachaByIdDocDacha;
 
     public int getId() {
         return id;
@@ -43,7 +42,7 @@ public class DocDachaAddr {
         this.address = address;
     }
 
-    public DocDacha getDocDachaByIdDocDacha() {
+    public int getDocDachaByIdDocDacha() {
         return docDachaByIdDocDacha;
     }
 
@@ -63,7 +62,7 @@ public class DocDachaAddr {
         return Objects.hash(id, district, address);
     }
 
-    public void setDocDachaByIdDocDacha(DocDacha docDachaByIdDocDacha) {
+    public void setDocDachaByIdDocDacha(int docDachaByIdDocDacha) {
         this.docDachaByIdDocDacha = docDachaByIdDocDacha;
     }
 }
