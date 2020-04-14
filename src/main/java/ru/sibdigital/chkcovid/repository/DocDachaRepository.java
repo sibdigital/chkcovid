@@ -38,7 +38,7 @@ public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
     @Query(value = "select ddv.*\n" +
             "from ( select * from\n" +
             "      doc_dacha as dd\n" +
-            "    where date_trunc('day', dd.valid_date) = :validDate\n" +
+            "    where date_trunc('day', dd.valid_date) = :validDate \n" +
             ") as ddv\n" +
             "inner join(\n" +
             "    select ddp.id_doc_dacha\n" +
@@ -55,7 +55,7 @@ public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
     @Query(value = "select ddv.*\n" +
             "from ( select * from\n" +
             "      doc_dacha as dd\n" +
-            "    where date_trunc('day', dd.valid_date) = :validDate\n" +
+            "   where date_trunc('day', dd.valid_date) = :validDate \n" +
             ") as ddv\n" +
             "inner join(\n" +
             "    select ddp.id_doc_dacha\n" +
