@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.sibdigital.chkcovid.domain.DocPerson;
 import ru.sibdigital.chkcovid.domain.DocRequest;
-//import ru.sibdigital.chkcovid.repository.DocPersonRepository;
-//import ru.sibdigital.chkcovid.repository.DocRequestRepo;
+import ru.sibdigital.chkcovid.repository.DocPersonRepository;
+import ru.sibdigital.chkcovid.repository.DocRequestRepository;
 
 import javax.print.Doc;
 import java.util.List;
@@ -28,15 +28,15 @@ class MainControllerTest {
 //    String lastname = "Маняшина";
 //    String patronymic = "Егоровна";
 
-    //@Autowired
-    //private DocPersonRepository personRepository;
+    @Autowired
+    private DocPersonRepository personRepository;
 
-//    @Autowired
-//    private DocRequestRepo docRequestRepo;
+    @Autowired
+    private DocRequestRepository docRequestRepo;
 
     //@Test
     void filter() {
-        //List<DocPerson> people = null;
+        List<DocPerson> people = null;
 
 //        people = personRepository.findAllByInnAndLastnameStartsWithIgnoreCaseAndFirstnameStartsWithIgnoreCaseAndPatronymicStartsWithIgnoreCase(inn,
 //                                                                                    lastname,
@@ -55,19 +55,19 @@ class MainControllerTest {
     @Test
     void testFindTop100ByInnOrShortName() {
 
-//        String innOrShortName = "Бест";
-//        List<DocRequest> requests = docRequestRepo.findTop100ByInnOrShortName(innOrShortName.trim().toLowerCase() , innOrShortName.trim().toLowerCase());
-//        assertNotNull(requests);
-//
-//        log.info("requests size:" + requests.size());
-//        if (requests.size() > 0){
-//            DocRequest req = requests.get(0);
-//
-//            log.info("organization: " + req.getOrganization().getName());
-//
-//            log.info("dep: " + req.getDepartment().getName());
-//
-//        }
+        String innOrShortName = "Бест";
+        List<DocRequest> requests = docRequestRepo.findTop100ByInnOrShortName(innOrShortName.trim().toLowerCase());
+        assertNotNull(requests);
+
+        log.info("requests size:" + requests.size());
+        if (requests.size() > 0){
+            DocRequest req = requests.get(0);
+
+            log.info("organization: " + req.getOrganization().getName());
+
+            log.info("dep: " + req.getDepartment().getName());
+
+        }
 
     }
 }

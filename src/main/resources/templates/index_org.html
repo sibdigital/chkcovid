@@ -15,10 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div th:insert="navbar"></div>
+<div th:insert="partials/navbar"></div>
 <main role="main" class="container">
-    <div th:insert="filter_by_shortname"></div>
-    <div th:insert="table_by_shortname"></div>
+    <div th:insert="partials/org/filter_by_shortname"></div>
+    <div th:insert="partials/org/table_by_shortname"></div>
     <br>
     <br>
     <br>
@@ -26,7 +26,7 @@
     <br>
 </main>
 <footer class="fixed-bottom page-footer navbar-dark bg-dark text-center" >
-    <div class="container" th:insert="footer"></div>
+    <div class="container" th:insert="partials/footer"></div>
 </footer>
 <script src="js/script_by_shortname.js"></script>
 </body>

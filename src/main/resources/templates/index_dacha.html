@@ -17,9 +17,17 @@
 <body>
 <div th:insert="partials/navbar"></div>
 <main role="main" class="container">
-    <div th:insert="partials/worker/filter"></div>
-    <div th:insert="partials/worker/table"></div>
+    <div th:insert="partials/dacha/filter_dacha"></div>
+    <div th:insert="partials/dacha/table_dacha"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </main>
-<script src="js/script.js"></script>
+<footer class="fixed-bottom page-footer navbar-dark bg-dark text-center" >
+    <div class="container" th:insert="partials/footer"></div>
+</footer>
+<script src="js/script_dacha.js"></script>
 </body>
 </html>
