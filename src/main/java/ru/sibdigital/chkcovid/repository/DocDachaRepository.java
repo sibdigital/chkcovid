@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.sibdigital.chkcovid.domain.DocDacha;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
@@ -33,4 +34,38 @@ public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
                                                                             @Param("patronymic")String patronymic,
                                                                             @Param("district")String district,
                                                                             @Param("address")String address);
+
+    @Query(value = "select ddv.*\n" +
+            "from ( select * from\n" +
+            "      doc_dacha as dd\n" +
+            "    where date_trunc('day', dd.valid_date) = :validDate\n" +
+            ") as ddv\n" +
+            "inner join(\n" +
+            "    select ddp.id_doc_dacha\n" +
+            "    from doc_dacha_person as ddp\n" +
+            "    where (upper(trim(ddp.firstname)), upper(trim(ddp.lastname)), upper(trim(ddp.patronymic)))\n" +
+            "        = (upper(trim(:firstname)),    upper(trim(:lastname)),    upper(trim(:patronymic)))\n" +
+            ") as ddp\n" +
+            "on ddv.id = ddp.id_doc_dacha;\n",
+            nativeQuery = true)
+    List<DocDacha> findByFirstnameAndLastnameAndPatronymicAndValidDate(@Param("lastname")String lastname,
+                                                                       @Param("firstname")String firstname,
+                                                                       @Param("patronymic")String patronymic,
+                                                                       @Param("validDate") LocalDate validDate);
+    @Query(value = "select ddv.*\n" +
+            "from ( select * from\n" +
+            "      doc_dacha as dd\n" +
+            "    where date_trunc('day', dd.valid_date) = :validDate\n" +
+            ") as ddv\n" +
+            "inner join(\n" +
+            "    select ddp.id_doc_dacha\n" +
+            "    from doc_dacha_person as ddp\n" +
+            "    where (upper(trim(ddp.firstname)), upper(trim(ddp.lastname)))\n" +
+            "        = (upper(trim(:firstname)),    upper(trim(:lastname)))\n" +
+            ") as ddp\n" +
+            "on ddv.id = ddp.id_doc_dacha;\n",
+            nativeQuery = true)
+    List<DocDacha> findByFirstnameAndLastnameAndValidDate(@Param("lastname")String lastname,
+                                                          @Param("firstname")String firstname,
+                                                          @Param("validDate") LocalDate validDate);
 }

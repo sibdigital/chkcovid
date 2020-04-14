@@ -6,8 +6,8 @@ function submitForm(e) {
     dacha.firstname = $.trim($("#firstname").val());
     dacha.lastname = $.trim($("#lastname").val());
     dacha.patronymic = $.trim($("#patronymic").val());
-    dacha.district = $.trim($("#district").val());
-    dacha.address = $.trim($("#address").val());
+    //dacha.district = $.trim($("#district").val());
+    //dacha.address = $.trim($("#address").val());
 
     for (var key in dacha) {
         if (dacha[key] === "" && key !== "patronymic") {
@@ -39,22 +39,25 @@ function submitForm(e) {
                     $("#noResults").attr("style", "display:block");
                 } else {
                     for (var i = 0; i < data.length; i++) {
-                        dachaAddr = data[i].docDachaAddrs;
-                        address = "<ul class=\"list-group\">";
-                        for (var j = 0; j < dachaAddr.length; j++) {
-                            address += "<li class=\"list-group-item\">" +
-                                (dachaAddr[j].district == null ? "" : (dachaAddr[j].district + ", ")) +
-                                (dachaAddr[j].address == null ? "" : dachaAddr[j].address) +
-                                "</li>";
-                        }
-                        address += "</ul>";
-                        var html =
-                            "<tr>" +
-                            "<td class=\"text-center\">" + (data[i].lastname == null ? "" : data[i].lastname) + " " + (data[i].firstname == null ? "" : data[i].firstname) + " " + (data[i].patronymic == null ? "" : data[i].patronymic) + "</td>" +
-                            "<td class=\"text-center\">" + ((data[i].raion == null ? "" : (data[i].raion + ', ')) +(data[i].naspunkt == null ? "" : data[i].naspunkt)) + "</td>" +
-                            "<td class=\"text-center\">" + (address) + "</td>" +
-                            // "<td class=\"text-center\">" + (data[i].docDachaAddrs.address == null ? "" : data[i].docDachaAddrs.address) + "</td>" +
+                        persons = data[i].docDachaPersons;
+                        var req = "<tr>"
+                                "<td rowspan='2'>" + data.validDate + "</td>"
+                                "<td colspan='3'>Выехал: " + data.raion + ' '+ data.naspunkt + "</td>"
+                            "</tr>"
+                            "<tr>"
+                            "<td colspan='3'>Следует: " + data.district + ' '+ data.address + "</td>"
                             "</tr>";
+                        pers = "";
+                        for (var j = 0; j < persons.length; j++) {
+                            var fio = (persons[j].lastname == null ? "" : persons[j].lastname) + " "
+                                    + (persons[j].firstname == null ? "" : persons[j].firstname) + " "
+                                    + (persons[j].patronymic == null ? "" : persons[j].patronymic);
+                            pers += "<tr>\n" +
+                                "    <td>+ j + </td>\n" +
+                                "    <td colspan=\"3\">" + fio + "</td>\n" +
+                                "  </tr>";
+                        }
+                        var html =  req + pers;
                         $("#orgTable").append(html);
                     }
                 }
