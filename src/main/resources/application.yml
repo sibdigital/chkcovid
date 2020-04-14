@@ -8,7 +8,7 @@ spring:
     password: d2ebc197acc4cd41c291e3bc79c3de5f00bce2735d406499a39ea6964f18ce71
     driverClassName: org.postgresql.Driver
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     properties:
       hibernate:
         jdbc:
