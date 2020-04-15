@@ -30,10 +30,10 @@ function submitForm(e) {
                     $("#noResultsShortname").attr("style", "display:block")
                 } else {
                     for (var i = 0; i < data.length; i++) {
-                        var dateCreate = data[i].timeCreate === null ? "" : new Date(data[i].timeCreate);
-                        var dateReview = data[i].timeReview === null ? "" : new Date(data[i].timeReview);
+                        var dateCreate = data[i].timeCreate ? "" : new Date(data[i].timeCreate);
+                        var dateReview = data[i].timeReview ? "" : new Date(data[i].timeReview);
                         var status = "";
-                        var created = (('0' + dateCreate.getDate()).slice(-2) + '.' + ('0' + (dateCreate.getMonth() + 1)).slice(-2) + '.' + dateCreate.getFullYear());
+                        var created = data[i].timeCreate ? "" : (('0' + dateCreate.getDate()).slice(-2) + '.' + ('0' + (dateCreate.getMonth() + 1)).slice(-2) + '.' + dateCreate.getFullYear());
                         var reviewed = "";
                         if (data[i].statusReview === 0){
                             status ="На рассмотрении";
@@ -41,7 +41,7 @@ function submitForm(e) {
                         }
                         else{
                             status = "Решение отправлено на эл. почту заявителя";
-                            reviewed = (('0' + dateReview.getDate()).slice(-2) + '.' + ('0' + (dateReview.getMonth() + 1)).slice(-2) + '.' + dateReview.getFullYear());
+                            reviewed = data[i].timeReview ? "" : (('0' + dateReview.getDate()).slice(-2) + '.' + ('0' + (dateReview.getMonth() + 1)).slice(-2) + '.' + dateReview.getFullYear());
                         }
                         var html =
                             "<tr>" +
