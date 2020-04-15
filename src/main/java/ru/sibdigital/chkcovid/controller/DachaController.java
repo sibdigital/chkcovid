@@ -43,15 +43,15 @@ public class DachaController {
             if (customQuery.get("patronymic").equals("")) {
                 LocalDate now = LocalDate.now();
                 dachas = docDachaRepository.findByFirstnameAndLastnameAndValidDate(
-                        customQuery.get("firstname"),
                         customQuery.get("lastname"),
+                        customQuery.get("firstname"),
                         now);
 
             } else {
                 LocalDate now = LocalDate.now();
                 dachas = docDachaRepository.findByFirstnameAndLastnameAndPatronymicAndValidDate(
-                        customQuery.get("firstname"),
                         customQuery.get("lastname"),
+                        customQuery.get("firstname"),
                         customQuery.get("patronymic"),
                         now);
             }
