@@ -46,7 +46,8 @@ public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
             "    where (upper(trim(ddp.firstname)), upper(trim(ddp.lastname)), upper(trim(ddp.patronymic)))\n" +
             "        = (upper(trim(:firstname)),    upper(trim(:lastname)),    upper(trim(:patronymic)))\n" +
             ") as ddp\n" +
-            "on ddv.id = ddp.id_doc_dacha;\n",
+            "on ddv.id = ddp.id_doc_dacha" +
+            " order by ddv.valid_date;\n",
             nativeQuery = true)
     List<DocDacha> findByFirstnameAndLastnameAndPatronymicAndValidDate(@Param("lastname")String lastname,
                                                                        @Param("firstname")String firstname,
@@ -63,7 +64,8 @@ public interface DocDachaRepository extends JpaRepository<DocDacha, Long> {
             "    where (upper(trim(ddp.firstname)), upper(trim(ddp.lastname)))\n" +
             "        = (upper(trim(:firstname)),    upper(trim(:lastname)))\n" +
             ") as ddp\n" +
-            "on ddv.id = ddp.id_doc_dacha;\n",
+            "on ddv.id = ddp.id_doc_dacha" +
+            " order by ddv.valid_date;\n",
             nativeQuery = true)
     List<DocDacha> findByFirstnameAndLastnameAndValidDate(@Param("lastname")String lastname,
                                                           @Param("firstname")String firstname,
