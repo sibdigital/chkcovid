@@ -32,7 +32,7 @@ function submitForm(e) {
                     for (var i = 0; i < data.length; i++) {
                         var options = {
                             year: 'numeric',
-                            month: 'long',
+                            month: 'numeric',
                             day: 'numeric',
                         };
                         var dateCreate = data[i].timeCreate ? new Date(data[i].timeCreate) : "";
