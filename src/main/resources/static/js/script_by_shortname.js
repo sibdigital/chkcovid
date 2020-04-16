@@ -30,10 +30,15 @@ function submitForm(e) {
                     $("#noResultsShortname").attr("style", "display:block")
                 } else {
                     for (var i = 0; i < data.length; i++) {
-                        var dateCreate = data[i].timeCreate ? "" : new Date(data[i].timeCreate);
-                        var dateReview = data[i].timeReview ? "" : new Date(data[i].timeReview);
+                        var options = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                        };
+                        var dateCreate = data[i].timeCreate ? new Date(data[i].timeCreate) : "";
+                        var dateReview = data[i].timeReview ? new Date(data[i].timeReview) : "";
                         var status = "";
-                        var created = data[i].timeCreate ? "" : (('0' + dateCreate.getDate()).slice(-2) + '.' + ('0' + (dateCreate.getMonth() + 1)).slice(-2) + '.' + dateCreate.getFullYear());
+                        var created = data[i].timeCreate ? dateCreate.toLocaleString("ru", options) : "";
                         var reviewed = "";
                         if (data[i].statusReview === 0){
                             status ="На рассмотрении";
@@ -41,7 +46,7 @@ function submitForm(e) {
                         }
                         else{
                             status = "Решение отправлено на эл. почту заявителя";
-                            reviewed = data[i].timeReview ? "" : (('0' + dateReview.getDate()).slice(-2) + '.' + ('0' + (dateReview.getMonth() + 1)).slice(-2) + '.' + dateReview.getFullYear());
+                            reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                         }
                         var html =
                             "<tr>" +
