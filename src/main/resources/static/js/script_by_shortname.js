@@ -40,23 +40,32 @@ function submitForm(e) {
                         var status = "";
                         var created = data[i].timeCreate ? dateCreate.toLocaleString("ru", options) : "";
                         var reviewed = "";
+                        var rejected = false;
+                        var rejectCom = "";
                         if (data[i].statusReview === 0){
                             status ="На рассмотрении";
                             reviewed = "-"
                         }
-                        else{
-                            status = "Решение отправлено на эл. почту заявителя";
+                        else if (data[i].statusReview === 1){
+                            status = "Принято";
+                            reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
+                        }
+                        else
+                        {
+                            rejected = true;
+                            status = "Отклонено";
+                            rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Причина:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "причина не указана")+"</td></tr>";
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                         }
                         var html =
-                            "<tr>" +
-                            "<td class=\"text-center\">" + (data[i].organization.shortName == null ? "" : data[i].organization.shortName) + "</td>" +
+                            "<tr style='" + (rejected ? "" : "border-bottom:solid grey 2px;") + "'>" +
+                            "<td class=\"text-center" + (rejected ? " align-middle\" style=\"border-bottom:solid grey 2px;\" rowspan=\"2\"" : "\"") + ">" + (data[i].organization.shortName == null ? "" : data[i].organization.shortName) + "</td>" +
                             "<td class=\"text-center\">" + (data[i].organization.inn == null ? "" : data[i].organization.inn) + "</td>" +
                             "<td class=\"text-center\">" + (status) + "</td>" +
                             "<td class=\"text-center\">" + (created) + "</td>" +
                             "<td class=\"text-center\">" + (reviewed) + "</td>" +
                             "<td class=\"text-center\">" + (data[i].department.name==null ? "" : data[i].department.name) + "</td>" +
-                            "</tr>";
+                            "</tr>" + (rejected ? rejectCom : "");
                         $("#orgShortnameTable").append(html);
                     }
                 }
