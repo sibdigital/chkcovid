@@ -54,12 +54,12 @@ function submitForm(e) {
                         {
                             rejected = true;
                             status = "Отклонено";
-                            rejectCom = "<tr><td class=\"text-center\">Причина:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "причина не указана")+"</td></tr>";
+                            rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Причина:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "причина не указана")+"</td></tr>";
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                         }
                         var html =
-                            "<tr>" +
-                            "<td class=\"text-center" + (rejected ? " align-middle\" rowspan=\"2\"" : "\"") + ">" + (data[i].organization.shortName == null ? "" : data[i].organization.shortName) + "</td>" +
+                            "<tr style='" + (rejected ? "" : "border-bottom:solid grey 2px;") + "'>" +
+                            "<td class=\"text-center" + (rejected ? " align-middle\" style=\"border-bottom:solid grey 2px;\" rowspan=\"2\"" : "\"") + ">" + (data[i].organization.shortName == null ? "" : data[i].organization.shortName) + "</td>" +
                             "<td class=\"text-center\">" + (data[i].organization.inn == null ? "" : data[i].organization.inn) + "</td>" +
                             "<td class=\"text-center\">" + (status) + "</td>" +
                             "<td class=\"text-center\">" + (created) + "</td>" +
