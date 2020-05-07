@@ -2,6 +2,7 @@ package ru.sibdigital.chkcovid.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +17,8 @@ public class DocPerson {
     private Timestamp timeImport;
     private String shortName;
     private String inn;
+
+    //private transient LocalDate dateActual;
 
     @Id
     @Column(name = "id")
@@ -106,6 +109,16 @@ public class DocPerson {
     public void setInn(String inn) {
         this.inn = inn;
     }
+
+//    @Transient
+//    public LocalDate getDateActual() {
+//        return dateActual;
+//    }
+//
+//    public void setDateActual(LocalDate dateActual) {
+//        this.dateActual = dateActual;
+//    }
+
 
     @Override
     public boolean equals(Object o) {

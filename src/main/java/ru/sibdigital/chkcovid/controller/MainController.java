@@ -13,6 +13,7 @@ import ru.sibdigital.chkcovid.domain.RegStatistic;
 import ru.sibdigital.chkcovid.repository.DocPersonRepository;
 import ru.sibdigital.chkcovid.repository.RegStatisticRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -49,10 +50,12 @@ public class MainController {
 
 
         try {
+            LocalDate currDate = LocalDate.now();
             if (person.getPatronymic().equals("")) {
-                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname());
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), currDate);
             } else {
-                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(), person.getFirstname(), person.getPatronymic());
+                people = personRepository.findDistinctByInnAndLastnameIgnoreCaseAndFirstnameIgnoreCaseAndPatronymicIgnoreCase(person.getInn(), person.getLastname(),
+                        person.getFirstname(), person.getPatronymic(), currDate);
             }
         } catch (Exception e) {
             logger.error(e.toString());

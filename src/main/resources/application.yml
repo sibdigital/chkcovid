@@ -1,11 +1,11 @@
 server:
-  port: 8090
+  port: 8091
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://ec2-54-159-112-44.compute-1.amazonaws.com/d3ijaiefsj2sgh
-    username: inqposybzoykrv
-    password: d2ebc197acc4cd41c291e3bc79c3de5f00bce2735d406499a39ea6964f18ce71
+    url: jdbc:postgresql://localhost/addcovid
+    username: postgres
+    password:
     driverClassName: org.postgresql.Driver
   jpa:
     generate-ddl: false
@@ -15,6 +15,7 @@ spring:
           lob:
             non_contextual_creation: true
       database-platform: org.hibernate.dialect.PostgreSQL11Dialect
+    show-sql: true
   freemarker:
     expose-request-attributes: true
 loger:
