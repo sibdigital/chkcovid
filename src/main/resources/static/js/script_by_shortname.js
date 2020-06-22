@@ -49,6 +49,7 @@ function submitForm(e) {
                         else if (data[i].statusReview === 1){
                             status = "Принято";
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
+                            rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Примечание:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "")+"</td></tr>";
                         }
                         else
                         {
@@ -65,7 +66,7 @@ function submitForm(e) {
                             "<td class=\"text-center\">" + (created) + "</td>" +
                             "<td class=\"text-center\">" + (reviewed) + "</td>" +
                             "<td class=\"text-center\">" + (data[i].department.name==null ? "" : data[i].department.name) + "</td>" +
-                            "</tr>" + (rejected ? rejectCom : "");
+                            "</tr>" + ( (rejected || data[i].rejectComment) ? rejectCom : "");
                         $("#orgShortnameTable").append(html);
                     }
                 }
