@@ -51,6 +51,11 @@ function submitForm(e) {
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                             rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Примечание:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "")+"</td></tr>";
                         }
+                        else if (data[i].statusReview === 4){
+                            status = "Получено";
+                            reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
+                            rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Примечание:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "")+"</td></tr>";
+                        }
                         else
                         {
                             rejected = true;
