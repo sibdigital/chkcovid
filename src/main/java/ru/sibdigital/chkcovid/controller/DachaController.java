@@ -1,10 +1,13 @@
 package ru.sibdigital.chkcovid.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.sibdigital.chkcovid.config.ApplicationConstants;
 import ru.sibdigital.chkcovid.domain.DocDacha;
 import ru.sibdigital.chkcovid.repository.DocDachaPersonRepository;
 import ru.sibdigital.chkcovid.repository.DocDachaRepository;
@@ -16,6 +19,9 @@ import java.util.Map;
 
 @Controller
 public class DachaController {
+    @Autowired
+    private ApplicationConstants applicationConstants;
+
     private static final Logger logger = Logger.getLogger(MainController.class);
     private DocDachaRepository docDachaRepository;
     private DocDachaPersonRepository docDachaPersonRepository;
@@ -27,7 +33,8 @@ public class DachaController {
     }
 
     @GetMapping("/dacha_check")
-    public String filterForm(){
+    public String filterForm(Model model){
+        model.addAttribute("check_dacha_name", applicationConstants.getCheckDachaName());
         return "index_dacha";
     }
 
