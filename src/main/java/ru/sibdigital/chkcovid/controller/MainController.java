@@ -37,6 +37,7 @@ public class MainController {
     @GetMapping
     public String greeting(Map<String, Object> model) {
         model.put("application_name", applicationConstants.getApplicationName());
+        model.put("navbar_name", applicationConstants.getNavbarName());
         return "index";
     }
 

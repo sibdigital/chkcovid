@@ -42,6 +42,7 @@ public class OrgController {
     @GetMapping("/org_check")
     public String greeting(Map<String, Object> model) {
         model.put("check_request_name", applicationConstants.getCheckRequestName());
+        model.put("navbar_name", applicationConstants.getNavbarName());
         return "index_org";
     }
 

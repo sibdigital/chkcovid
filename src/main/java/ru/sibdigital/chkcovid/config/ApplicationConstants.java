@@ -24,5 +24,7 @@ public class ApplicationConstants {
     @Value("${check-request-name}")
     private String checkRequestName;
 
+    @Value("${navbar-name}")
+    private String navbarName;
 
 }

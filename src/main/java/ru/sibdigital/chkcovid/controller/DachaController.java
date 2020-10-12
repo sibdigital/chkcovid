@@ -35,6 +35,7 @@ public class DachaController {
     @GetMapping("/dacha_check")
     public String filterForm(Model model){
         model.addAttribute("check_dacha_name", applicationConstants.getCheckDachaName());
+        model.addAttribute("navbar_name", applicationConstants.getNavbarName());
         return "index_dacha";
     }
 
