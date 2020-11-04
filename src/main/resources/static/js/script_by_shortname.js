@@ -4,8 +4,9 @@ function submitForm(e) {
     var valid = true;
     var org = {};
     org.inn = $.trim($("#inn_org").val());
+    let innLength = org.inn.length;
 
-    if (org["inn"] === ""){
+    if (org["inn"] === "" || (innLength !== 10 && innLength !== 12)){
         $("#inn_org").addClass("is-invalid");
         valid = false;
     }

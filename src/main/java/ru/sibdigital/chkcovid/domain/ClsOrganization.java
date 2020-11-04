@@ -54,7 +54,7 @@ public class ClsOrganization {
     @Basic
     @Column(name = "inn")
     public String getInn() {
-        return inn;
+        return inn.trim();
     }
 
     public void setInn(String inn) {

@@ -7,6 +7,12 @@ function submitForm(e) {
     person.lastname = $.trim($("#lastname").val());
     person.patronymic = $.trim($("#patronymic").val());
     person.inn = $.trim($("#inn").val());
+    let innLength = person.inn.length;
+
+    if (person["inn"] === "" || (innLength !== 10 && innLength !== 12)){
+        $("#inn").addClass("is-invalid");
+        valid = false;
+    }
 
     for (var key in person) {
         if (person[key] === "" && key !== "patronymic") {

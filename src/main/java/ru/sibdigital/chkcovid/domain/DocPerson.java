@@ -43,7 +43,7 @@ public class DocPerson {
     @Basic
     @Column(name = "lastname")
     public String getLastname() {
-        return lastname;
+        return lastname.trim();
     }
 
     public void setLastname(String lastname) {
@@ -53,7 +53,7 @@ public class DocPerson {
     @Basic
     @Column(name = "firstname")
     public String getFirstname() {
-        return firstname;
+        return firstname.trim();
     }
 
     public void setFirstname(String firstname) {
@@ -63,7 +63,7 @@ public class DocPerson {
     @Basic
     @Column(name = "patronymic")
     public String getPatronymic() {
-        return patronymic;
+        return patronymic.trim();
     }
 
     public void setPatronymic(String patronymic) {
@@ -103,7 +103,7 @@ public class DocPerson {
     @Basic
     @Column(name = "inn")
     public String getInn() {
-        return inn;
+        return inn.trim();
     }
 
     public void setInn(String inn) {
