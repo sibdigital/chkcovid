@@ -23,7 +23,7 @@ function submitForm(e) {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/",
+            url: "check_person",
             data: JSON.stringify(person),
             beforeSend: function () {
                 $("#orgTable tbody").empty();

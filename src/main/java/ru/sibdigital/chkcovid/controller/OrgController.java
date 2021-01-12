@@ -40,7 +40,7 @@ public class OrgController {
         return "index_org";
     }
 
-    @PostMapping("/org_check/")
+    @PostMapping("/check_organization")
     public @ResponseBody
     ResponseEntity filter(@RequestBody ClsOrganization clsOrganization) {
         List<DocRequest> docRequests = null;

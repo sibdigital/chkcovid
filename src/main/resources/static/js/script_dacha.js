@@ -24,7 +24,7 @@ function submitForm(e) {
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/dacha_check/",
+            url: "check_dacha",
             data: JSON.stringify(dacha),
             beforeSend: function () {
                 $("#orgTable tbody").empty();

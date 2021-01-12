@@ -1,9 +1,11 @@
 server:
   port: 8091
+  servlet:
+    context-path: /check
 spring:
   datasource:
     platform: postgres
-    url: jdbc:postgresql://localhost/addcovid
+    url: jdbc:postgresql://localhost/cov_prod_copy
     username: postgres
     password:
     driverClassName: org.postgresql.Driver

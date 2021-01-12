@@ -35,7 +35,7 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping("/check_person")
     public @ResponseBody
     ResponseEntity filter(@RequestBody DocPerson person) {
         List<DocPerson> people = null;

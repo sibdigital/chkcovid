@@ -31,7 +31,7 @@ public class DachaController {
         return "index_dacha";
     }
 
-    @PostMapping("/dacha_check")
+    @PostMapping("/check_dacha")
     public @ResponseBody
     ResponseEntity filter(@RequestBody Map<String, String> customQuery) {
         List<DocDacha> dachas = new ArrayList<>();
