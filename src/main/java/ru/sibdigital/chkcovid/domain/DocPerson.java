@@ -9,7 +9,7 @@ import java.util.Objects;
 @Table(name = "v_doc_person_and_org_info")
 public class DocPerson {
     private int id;
-    private int idRequest;
+    private Long idRequest;
     private String lastname;
     private String firstname;
     private String patronymic;
@@ -32,11 +32,11 @@ public class DocPerson {
 
     @Basic
     @Column(name = "id_request")
-    public int getIdRequest() {
+    public Long getIdRequest() {
         return idRequest;
     }
 
-    public void setIdRequest(int idRequest) {
+    public void setIdRequest(Long idRequest) {
         this.idRequest = idRequest;
     }
 
