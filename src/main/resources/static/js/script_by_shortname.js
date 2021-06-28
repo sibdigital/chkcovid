@@ -63,6 +63,7 @@ function submitForm(e) {
                             rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Причина:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "причина не указана")+"</td></tr>";
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                         }
+                        status = status + "<sup style='color: #818182'> "+ data[i].id +"</sup>"
                         var html =
                             "<tr style='" + (rejected ? "" : "border-bottom:solid grey 2px;") + "'>" +
                             "<td class=\"text-center" + (rejected ? " align-middle\" style=\"border-bottom:solid grey 2px;\" rowspan=\"2\"" : "\"") + ">" + (data[i].organization.shortName == null ? "" : data[i].organization.shortName) + "</td>" +
