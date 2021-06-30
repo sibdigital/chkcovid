@@ -47,7 +47,7 @@ function submitForm(e) {
                             reviewed = "-"
                         }
                         else if (data[i].statusReview === 1){
-                            status = "Принято";
+                            status = "Одобрено";
                             reviewed = data[i].timeReview ? dateReview.toLocaleString("ru", options) : "";
                             rejectCom = "<tr style=\"border-bottom:solid grey 2px;\"><td class=\"text-center\">Примечание:</td><td colspan='4' class=\"text-center\">"+(data[i].rejectComment ? data[i].rejectComment : "")+"</td></tr>";
                         }
